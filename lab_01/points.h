@@ -53,16 +53,16 @@ using turn_t = struct turn;
 
 err_t handle_points(FILE *f, pdata_t &points);
 
-void move_point(point_t &point, const move_t coeffs);
+void move_point(point_t &point, const move_t &coeffs);
 
-void scale_point(point_t &point, const scale_t coeffs);
+void scale_point(point_t &point, const scale_t &coeffs);
 
-void turn_xpoint(point_t &point, const double angle);
+void turn_xpoint(point_t &point, const double &angle);
 
-void turn_ypoint(point_t &point, const double angle);
+void turn_ypoint(point_t &point, const double &angle);
 
-void turn_zpoint(point_t &point, const double angle);
+void turn_zpoint(point_t &point, const double &angle);
 
-void free_points(pdata_t points);
+void free_points(const pdata_t &points);
 
 #endif

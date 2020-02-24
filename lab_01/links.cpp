@@ -15,7 +15,7 @@ static err_t read_amount(FILE *f, ldata_t &links)
     return OK;
 }
 
-static err_t read_links(FILE *f, const int size, link_t *const array)
+static err_t read_links(FILE *f, const int &size, link_t *const array)
 {
     for (int i = 0; i < size; i++)
     {
@@ -42,7 +42,7 @@ static err_t allocate_links(ldata_t &links)
     return OK;
 }
 
-void free_links(ldata_t links)
+void free_links(const ldata_t &links)
 {
     if (links.array != nullptr)
     {

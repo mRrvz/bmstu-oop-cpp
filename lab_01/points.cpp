@@ -1,6 +1,6 @@
 #include "points.h"
 
-double to_radians(double (*f)(double), const double angle)
+double to_radians(double (*f)(double), const double &angle)
 {
     return (*f)(angle * PI / 180);
 }
@@ -20,7 +20,7 @@ static err_t read_amount(FILE *f, pdata_t &points)
     return OK;
 }
 
-static err_t read_points(FILE *f, const int size, point_t *const array)
+static err_t read_points(FILE *f, const int &size, point_t *const array)
 {
     for (int i = 0; i < size; i++)
     {
@@ -47,7 +47,7 @@ static err_t allocate_links(pdata_t &points)
     return OK;
 }
 
-void free_points(pdata_t points)
+void free_points(const pdata_t &points)
 {
     if (points.array != nullptr)
     {
@@ -78,21 +78,21 @@ err_t handle_points(FILE *f, pdata_t &points)
     return OK;
 }
 
-void move_point(point_t &point, const move_t coeffs)
+void move_point(point_t &point, const move_t &coeffs)
 {
     point.x += coeffs.dx;
     point.y += coeffs.dy;
     point.z += coeffs.dz;
 }
 
-void scale_point(point_t &point, const scale_t coeffs)
+void scale_point(point_t &point, const scale_t &coeffs)
 {
     point.x *= coeffs.kx;
     point.y *= coeffs.ky;
     point.z *= coeffs.kz;
 }
 
-void turn_xpoint(point_t &point, const double angle)
+void turn_xpoint(point_t &point, const double &angle)
 {
     double cos_radians = to_radians(cos, angle);
     double sin_radians = to_radians(sin, angle);
@@ -101,7 +101,7 @@ void turn_xpoint(point_t &point, const double angle)
     point.z = -point.y * sin_radians + point.z * cos_radians;
 }
 
-void turn_ypoint(point_t &point, const double angle)
+void turn_ypoint(point_t &point, const double &angle)
 {
     double cos_radians = to_radians(cos, angle);
     double sin_radians = to_radians(sin, angle);
@@ -110,7 +110,7 @@ void turn_ypoint(point_t &point, const double angle)
     point.z = -point.x * sin_radians + point.z * cos_radians;
 }
 
-void turn_zpoint(point_t &point, const double angle)
+void turn_zpoint(point_t &point, const double &angle)
 {
     double cos_radians = to_radians(cos, angle);
     double sin_radians = to_radians(sin, angle);

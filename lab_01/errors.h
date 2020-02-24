@@ -15,6 +15,6 @@ enum errors
 
 using err_t = enum errors;
 
-void handle_error(const err_t code);
+void handle_error(const err_t &code);
 
 #endif

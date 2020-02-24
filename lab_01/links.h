@@ -26,8 +26,6 @@ using ldata_t = struct links_data;
 
 err_t handle_links(FILE *f, ldata_t &links);
 
-void draw_links(point_t pt1, point_t pt2, QGraphicsScene *scene);
-
-void free_links(ldata_t links);
+void free_links(const ldata_t &links);
 
 #endif 

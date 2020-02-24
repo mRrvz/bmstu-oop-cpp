@@ -30,7 +30,7 @@ err_t load_figure(fname_t name, figure_t &figure)
     return OK;
 }
 
-void draw_figure(const figure_t figure, QGraphicsScene *scene)
+void draw_figure(const figure_t &figure, QGraphicsScene *scene)
 {
     plane_t plane = { scene, scene->width(), scene->height() };
 
@@ -38,7 +38,7 @@ void draw_figure(const figure_t figure, QGraphicsScene *scene)
     draw_links(figure.links, figure.points, plane);
 }
 
-void move_figure(pdata_t &points, const move_t coeffs)
+void move_figure(pdata_t &points, const move_t &coeffs)
 {
     for (int i = 0; i < points.size; i++)
     {
@@ -46,7 +46,7 @@ void move_figure(pdata_t &points, const move_t coeffs)
     }
 }
 
-void scale_figure(pdata_t &points, const scale_t coeffs)
+void scale_figure(pdata_t &points, const scale_t &coeffs)
 {
     for (int i = 0; i < points.size; i++)
     {
@@ -54,7 +54,7 @@ void scale_figure(pdata_t &points, const scale_t coeffs)
     }
 }
 
-void turn_figure(pdata_t &points, const turn coeffs)
+void turn_figure(pdata_t &points, const turn &coeffs)
 {
     for (int i = 0; i < points.size; i++)
     {
@@ -64,7 +64,7 @@ void turn_figure(pdata_t &points, const turn coeffs)
     }
 }
 
-void free_figure(const figure_t figure)
+void free_figure(const figure_t &figure)
 {
     free_points(figure.points);
     free_links(figure.links);
