@@ -37,7 +37,7 @@ static err_t allocate_links(pdata_t &points)
 {
     point_t *temp_array = (point_t *)malloc(points.size * sizeof(point_t));
 
-    if (temp_array == nullptr)
+    if (temp_array == NULL)
     {
         return ALLOC_ERR;
     }
@@ -49,7 +49,7 @@ static err_t allocate_links(pdata_t &points)
 
 void free_points(const pdata_t &points)
 {
-    if (points.array != nullptr)
+    if (points.array != NULL)
     {
         free(points.array);
     }

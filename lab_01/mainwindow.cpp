@@ -13,7 +13,6 @@ MainWindow::MainWindow(QWidget *parent):
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop | Qt::AlignLeft);
     scene->setSceneRect(0, 0, WIN_X, WIN_Y);
-    printf("%s ", system("pwd"));
 }
 
 MainWindow::~MainWindow(void)

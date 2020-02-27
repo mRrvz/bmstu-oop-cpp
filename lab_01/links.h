@@ -19,7 +19,7 @@ using link_t = struct link;
 struct links_data
 {
     int size = 0;
-    link_t *array = nullptr;
+    link_t *array = NULL;
 };
 
 using ldata_t = struct links_data;

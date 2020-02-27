@@ -21,7 +21,7 @@ using point_t = struct point;
 struct points_data
 {
     int size = 0;
-    point_t *array = nullptr;
+    point_t *array = NULL;
 };
 
 using pdata_t = struct points_data;
