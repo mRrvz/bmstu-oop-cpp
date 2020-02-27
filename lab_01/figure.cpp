@@ -2,11 +2,11 @@
 
 err_t load_figure(fname_t name, figure_t &figure)
 {
-    FILE *f = nullptr;
+    FILE *f;
     figure_t temp_figure;
     err_t error_code;
 
-    if ((f = fopen(name, "r")) == nullptr)
+    if ((f = fopen(name, "r")) == NULL)
     {
         return FILE_ERR;
     }

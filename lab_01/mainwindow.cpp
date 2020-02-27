@@ -13,11 +13,17 @@ MainWindow::MainWindow(QWidget *parent):
     ui->graphicsView->setScene(scene);
     ui->graphicsView->setAlignment(Qt::AlignTop | Qt::AlignLeft);
     scene->setSceneRect(0, 0, WIN_X, WIN_Y);
+    printf("%s ", system("pwd"));
 }
 
 MainWindow::~MainWindow(void)
 {
     delete ui;
+}
+
+double MainWindow::get_value(const QString string_value)
+{
+    return ui->dx_box->valueFromText(string_value);
 }
 
 void MainWindow::on_load_button_clicked(void)
@@ -39,9 +45,9 @@ void MainWindow::on_move_button_clicked(void)
 {
     move_t coeffs;
 
-    coeffs.dx = ui->dx_box->valueFromText(ui->dx_box->text());
-    coeffs.dy = ui->dy_box->valueFromText(ui->dy_box->text());
-    coeffs.dz = ui->dz_box->valueFromText(ui->dz_box->text());
+    coeffs.dx = get_value(ui->dx_box->text());
+    coeffs.dy = get_value(ui->dy_box->text());
+    coeffs.dz = get_value(ui->dz_box->text());
 
     move_figure(figure.points, coeffs);
     draw_figure(figure, ui->graphicsView->scene());
@@ -51,9 +57,9 @@ void MainWindow::on_scale_button_clicked(void)
 {
     scale_t coeffs;
 
-    coeffs.kx = ui->kx_box->valueFromText(ui->kx_box->text());
-    coeffs.ky = ui->ky_box->valueFromText(ui->ky_box->text());
-    coeffs.kz = ui->kz_box->valueFromText(ui->kz_box->text());
+    coeffs.kx = get_value(ui->kx_box->text());
+    coeffs.ky = get_value(ui->ky_box->text());
+    coeffs.kz = get_value(ui->kz_box->text());
 
     scale_figure(figure.points, coeffs);
     draw_figure(figure, ui->graphicsView->scene());
@@ -63,9 +69,9 @@ void MainWindow::on_turn_button_clicked(void)
 {
     turn_t coeffs;
 
-    coeffs.ox = ui->ox_box->valueFromText(ui->ox_box->text());
-    coeffs.oy = ui->oy_box->valueFromText(ui->oy_box->text());
-    coeffs.oz = ui->oz_box->valueFromText(ui->oz_box->text());
+    coeffs.ox = get_value(ui->ox_box->text());
+    coeffs.oy = get_value(ui->oy_box->text());
+    coeffs.oz = get_value(ui->oz_box->text());
 
     turn_figure(figure.points, coeffs);
     draw_figure(figure, ui->graphicsView->scene());

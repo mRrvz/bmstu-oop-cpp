@@ -29,6 +29,8 @@ private slots:
 
     void on_turn_button_clicked();
 
+    double get_value(const QString string_value);
+
 private:
     Ui::MainWindow *ui;
 };

@@ -32,7 +32,7 @@ static err_t allocate_links(ldata_t &links)
 {
     link_t *temp_array = (link_t *)malloc(links.size * sizeof(link_t));
 
-    if (temp_array == nullptr)
+    if (temp_array == NULL)
     {
         return ALLOC_ERR;
     }
@@ -44,7 +44,7 @@ static err_t allocate_links(ldata_t &links)
 
 void free_links(const ldata_t &links)
 {
-    if (links.array != nullptr)
+    if (links.array != NULL)
     {
         free(links.array);
     }
