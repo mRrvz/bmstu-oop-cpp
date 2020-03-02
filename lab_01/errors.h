@@ -10,7 +10,9 @@ enum errors
     ALLOC_ERR,
     READ_ERR,
     LSIZE_ERR,
-    PSIZE_ERR
+    PSIZE_ERR,
+    MEMORY_ERR,
+    UNKNOWN_COMMAND
 };
 
 using err_t = enum errors;

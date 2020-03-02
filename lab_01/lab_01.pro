@@ -22,7 +22,8 @@ SOURCES += \
     links.cpp \
     main.cpp \
     mainwindow.cpp \
-    points.cpp
+    points.cpp \
+    task_manager.cpp
 
 HEADERS += \
     draw.h \
@@ -30,7 +31,8 @@ HEADERS += \
     figure.h \
     links.h \
     mainwindow.h \
-    points.h
+    points.h \
+    task_manager.h
 
 FORMS += \
     mainwindow.ui

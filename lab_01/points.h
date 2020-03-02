@@ -51,7 +51,7 @@ using move_t = struct move;
 using scale_t = struct scale;
 using turn_t = struct turn;
 
-err_t handle_points(FILE *f, pdata_t &points);
+err_t handle_points(pdata_t &points, FILE *f);
 
 void move_point(point_t &point, const move_t &coeffs);
 

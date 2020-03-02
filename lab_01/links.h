@@ -24,7 +24,7 @@ struct links_data
 
 using ldata_t = struct links_data;
 
-err_t handle_links(FILE *f, ldata_t &links);
+err_t handle_links(ldata_t &links, FILE *f);
 
 void free_links(const ldata_t &links);
 

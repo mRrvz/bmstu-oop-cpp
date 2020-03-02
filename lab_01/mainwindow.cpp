@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-static figure_t figure;
-
 MainWindow::MainWindow(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -25,53 +23,115 @@ double MainWindow::get_value(const QString string_value)
     return ui->dx_box->valueFromText(string_value);
 }
 
+err_t MainWindow::draw_actions(void)
+{
+    plane_t plane;
+    plane.scene = ui->graphicsView->scene();
+    plane.width = plane.scene->width();
+    plane.height = plane.scene->height();
+
+    request_t request;
+    request.task = DRAW;
+    request.plane = plane;
+
+    err_t error_code = task_manager(request);
+
+    return error_code;
+}
+
 void MainWindow::on_load_button_clicked(void)
 {
     fname_t name = "data.csv";
-    err_t error_code;
+    request_t request;
 
-    free_figure(figure);
+    request.task = LOAD;
+    request.file_name = name;
 
-    if ((error_code = load_figure(name, figure)))
+    err_t error_code = task_manager(request);
+    if (error_code)
+    {
+        handle_error(error_code);
+        return;
+    }
+
+    error_code = draw_actions();
+    if (error_code)
     {
         handle_error(error_code);
     }
-
-    draw_figure(figure, ui->graphicsView->scene());
 }
 
 void MainWindow::on_move_button_clicked(void)
 {
     move_t coeffs;
+    coeffs.dx = ui->dx_box->value();;
+    coeffs.dy = ui->dy_box->value();
+    coeffs.dz = ui->dz_box->value();
 
-    coeffs.dx = get_value(ui->dx_box->text());
-    coeffs.dy = get_value(ui->dy_box->text());
-    coeffs.dz = get_value(ui->dz_box->text());
+    request_t request;
+    request.task = MOVE;
+    request.move = coeffs;
 
-    move_figure(figure.points, coeffs);
-    draw_figure(figure, ui->graphicsView->scene());
+    err_t error_code = task_manager(request);
+    if (error_code)
+    {
+        handle_error(error_code);
+        return;
+    }
+
+    error_code = draw_actions();
+    if (error_code)
+    {
+        handle_error(error_code);
+    }
 }
 
 void MainWindow::on_scale_button_clicked(void)
 {
     scale_t coeffs;
+    coeffs.kx = ui->kx_box->value();
+    coeffs.ky = ui->ky_box->value();
+    coeffs.kz = ui->kz_box->value();
 
-    coeffs.kx = get_value(ui->kx_box->text());
-    coeffs.ky = get_value(ui->ky_box->text());
-    coeffs.kz = get_value(ui->kz_box->text());
+    request_t request;
+    request.task = SCALE;
+    request.scale = coeffs;
 
-    scale_figure(figure.points, coeffs);
-    draw_figure(figure, ui->graphicsView->scene());
+    err_t error_code = task_manager(request);
+    if (error_code)
+    {
+        handle_error(error_code);
+        return;
+    }
+
+    error_code = draw_actions();
+    if (error_code)
+    {
+        handle_error(error_code);
+    }
 }
 
 void MainWindow::on_turn_button_clicked(void)
 {
     turn_t coeffs;
+    coeffs.ox = ui->ox_box->value();
+    coeffs.oy = ui->oy_box->value();
+    coeffs.oz = ui->oz_box->value();
 
-    coeffs.ox = get_value(ui->ox_box->text());
-    coeffs.oy = get_value(ui->oy_box->text());
-    coeffs.oz = get_value(ui->oz_box->text());
+    request_t request;
+    request.task = TURN;
+    request.turn = coeffs;
 
-    turn_figure(figure.points, coeffs);
-    draw_figure(figure, ui->graphicsView->scene());
+    err_t error_code = task_manager(request);
+    if (error_code)
+    {
+        handle_error(error_code);
+        return;
+    }
+
+    error_code = draw_actions();
+    if (error_code)
+    {
+        handle_error(error_code);
+    }
 }

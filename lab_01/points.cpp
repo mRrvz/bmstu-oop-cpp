@@ -5,7 +5,7 @@ double to_radians(double (*f)(double), const double &angle)
     return (*f)(angle * PI / 180);
 }
 
-static err_t read_amount(FILE *f, pdata_t &points)
+static err_t read_amount(pdata_t &points, FILE *f)
 {
     if ((fscanf(f, "%d", &points.size)) != 1)
     {
@@ -20,7 +20,7 @@ static err_t read_amount(FILE *f, pdata_t &points)
     return OK;
 }
 
-static err_t read_points(FILE *f, const int &size, point_t *const array)
+static err_t read_points(point_t *const array, const int size, FILE *f)
 {
     for (int i = 0; i < size; i++)
     {
@@ -55,11 +55,11 @@ void free_points(const pdata_t &points)
     }
 }
 
-err_t handle_points(FILE *f, pdata_t &points)
+err_t handle_points(pdata_t &points, FILE *f)
 {
-    err_t error_code;
+    err_t error_code = OK;
 
-    if ((error_code = read_amount(f, points)))
+    if ((error_code = read_amount(points, f)))
     {
         return error_code;
     }
@@ -69,13 +69,12 @@ err_t handle_points(FILE *f, pdata_t &points)
         return error_code;
     }
 
-    if ((error_code = read_points(f, points.size, points.array)))
+    if ((error_code = read_points(points.array, points.size, f)))
     {
         free_points(points);
-        return error_code;
     }
 
-    return OK;
+    return error_code;
 }
 
 void move_point(point_t &point, const move_t &coeffs)

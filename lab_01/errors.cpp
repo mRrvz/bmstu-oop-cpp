@@ -19,7 +19,10 @@ void handle_error(const err_t &code)
         case LSIZE_ERR:
             QMessageBox::critical(NULL, "Ошибка", "Некорректный размер количества линий.");
             break;
-        default:
+        case MEMORY_ERR:
+            QMessageBox::critical(NULL, "Ошибка", "Ошибка при обращении к данным.");
             break;
+        default:
+            QMessageBox::critical(NULL, "Ошибка", "Неизвестная комманда.");
     }
 }

@@ -1,11 +1,9 @@
 #include "draw.h"
 
-static point_t center_point(point_t &point, const plane_t &plane)
+static void center_point(point_t &point, const plane_t &plane)
 {
     point.x = point.x + plane.width / 2;
     point.y = point.y + plane.height / 2;
-
-    return point;
 }
 
 static void draw_link(const link_t &link, const point_t *const points, const plane_t &plane)

@@ -1,6 +1,6 @@
 #include "links.h"
 
-static err_t read_amount(FILE *f, ldata_t &links)
+static err_t read_amount(ldata_t &links, FILE *f)
 {
     if ((fscanf(f, "%d", &links.size)) != 1)
     {
@@ -15,7 +15,7 @@ static err_t read_amount(FILE *f, ldata_t &links)
     return OK;
 }
 
-static err_t read_links(FILE *f, const int &size, link_t *const array)
+static err_t read_links(link_t *const array, const int &size, FILE *f)
 {
     for (int i = 0; i < size; i++)
     {
@@ -50,11 +50,11 @@ void free_links(const ldata_t &links)
     }
 }
 
-err_t handle_links(FILE *f, ldata_t &links)
+err_t handle_links(ldata_t &links, FILE *f)
 {
-     err_t error_code;
+     err_t error_code = OK;
 
-     if ((error_code = read_amount(f, links)))
+     if ((error_code = read_amount(links, f)))
      {
          return error_code;
      }
@@ -64,11 +64,10 @@ err_t handle_links(FILE *f, ldata_t &links)
          return error_code;
      }
 
-     if ((error_code = read_links(f, links.size, links.array)))
+     if ((error_code = read_links(links.array, links.size, f)))
      {
          free_links(links);
-         return error_code;
      }
 
-     return OK;
+     return error_code;
 }

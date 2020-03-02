@@ -14,17 +14,19 @@ struct figure
 };
 
 using figure_t = struct figure;
-using fname_t = char[];
+using fname_t = const char *;
 
-err_t load_figure(fname_t name, figure_t &figure);
+figure &init(void);
 
-void draw_figure(const figure_t &figure, QGraphicsScene *scene);
+err_t load_figure(figure_t &figure, fname_t name);
 
-void move_figure(pdata_t &points, const move_t &coeffs);
+err_t draw_figure(const figure_t &figure,  const plane_t &plane);
 
-void scale_figure(pdata_t &points, const scale_t &coeffs);
+err_t move_figure(figure_t &figure, const move_t &coeffs);
 
-void turn_figure(pdata_t &points, const turn &coeffs);
+err_t scale_figure(figure_t &figure, const scale_t &coeffs);
+
+err_t turn_figure(figure_t &figure, const turn &coeffs);
 
 void free_figure(const figure_t &figure);
 
