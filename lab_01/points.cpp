@@ -95,26 +95,29 @@ void turn_xpoint(point_t &point, const double &angle)
 {
     double cos_radians = to_radians(cos, angle);
     double sin_radians = to_radians(sin, angle);
+    double temp_y = point.y;
 
     point.y = point.y + cos_radians + point.z * sin_radians;
-    point.z = -point.y * sin_radians + point.z * cos_radians;
+    point.z = -temp_y * sin_radians + point.z * cos_radians;
 }
 
 void turn_ypoint(point_t &point, const double &angle)
 {
     double cos_radians = to_radians(cos, angle);
     double sin_radians = to_radians(sin, angle);
+    double temp_x = point.x;
 
     point.x = point.x * cos_radians + point.z * sin_radians;
-    point.z = -point.x * sin_radians + point.z * cos_radians;
+    point.z = -temp_x * sin_radians + point.z * cos_radians;
 }
 
 void turn_zpoint(point_t &point, const double &angle)
 {
     double cos_radians = to_radians(cos, angle);
     double sin_radians = to_radians(sin, angle);
+    double temp_x = point.x;
 
     point.x = point.x * cos_radians + point.y * sin_radians;
-    point.y = -point.x * sin_radians + point.y * cos_radians;
+    point.y = -temp_x * sin_radians + point.y * cos_radians;
 }
 
