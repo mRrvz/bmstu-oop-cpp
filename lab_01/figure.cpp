@@ -52,7 +52,7 @@ err_t load_figure(figure_t &figure, fname_t name)
         figure = temp_figure;
     }
 
-    return OK;
+    return error_code;
 }
 
 err_t draw_figure(const figure_t &figure,  const plane_t &plane)
@@ -110,7 +110,6 @@ err_t scale_figure(figure_t &figure, const scale_t &coeffs)
 
 static void turn_points(pdata_t &points, const turn &coeffs)
 {
-
     for (int i = 0; i < points.size; i++)
     {
         turn_xpoint(points.array[i], coeffs.ox);

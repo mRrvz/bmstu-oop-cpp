@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include "task_manager.h"
+#include "requests.h"
 
 #define WIN_X 989
 #define WIN_Y 569
@@ -27,8 +27,6 @@ private slots:
     void on_scale_button_clicked();
 
     void on_turn_button_clicked();
-
-    double get_value(const QString string_value);
 
     err_t draw_actions(void);
 

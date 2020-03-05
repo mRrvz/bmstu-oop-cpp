@@ -1,7 +1,6 @@
-#ifndef TASK_MANAGER_H
-#define TASK_MANAGER_H
+#ifndef REQUEST_H
+#define REQUEST_H
 
-#include "errors.h"
 #include "figure.h"
 
 enum data
@@ -29,6 +28,6 @@ struct request
 
 using request_t = struct request;
 
-err_t task_manager(const request_t &request);
+err_t request_handler(const request_t &request);
 
 #endif

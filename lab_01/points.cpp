@@ -12,7 +12,7 @@ static err_t read_amount(pdata_t &points, FILE *f)
         return READ_ERR;
     }
 
-    if (points.size < 1)
+    if (points.size < 2)
     {
         return PSIZE_ERR;
     }

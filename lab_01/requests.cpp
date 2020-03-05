@@ -1,6 +1,6 @@
-#include "task_manager.h"
+#include "requests.h"
 
-err_t task_manager(const request_t &request)
+err_t request_handler(const request_t &request)
 {
     static figure_t figure = init();
     err_t error_code = OK;

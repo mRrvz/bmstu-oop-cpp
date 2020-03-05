@@ -15,12 +15,11 @@ MainWindow::MainWindow(QWidget *parent):
 
 MainWindow::~MainWindow(void)
 {
-    delete ui;
-}
+    request_t request;
+    request.task = QUIT;
+    request_handler(request);
 
-double MainWindow::get_value(const QString string_value)
-{
-    return ui->dx_box->valueFromText(string_value);
+    delete ui;
 }
 
 err_t MainWindow::draw_actions(void)
@@ -34,7 +33,7 @@ err_t MainWindow::draw_actions(void)
     request.task = DRAW;
     request.plane = plane;
 
-    err_t error_code = task_manager(request);
+    err_t error_code = request_handler(request);
 
     return error_code;
 }
@@ -47,7 +46,7 @@ void MainWindow::on_load_button_clicked(void)
     request.task = LOAD;
     request.file_name = name;
 
-    err_t error_code = task_manager(request);
+    err_t error_code = request_handler(request);
     if (error_code)
     {
         handle_error(error_code);
@@ -64,7 +63,7 @@ void MainWindow::on_load_button_clicked(void)
 void MainWindow::on_move_button_clicked(void)
 {
     move_t coeffs;
-    coeffs.dx = ui->dx_box->value();;
+    coeffs.dx = ui->dx_box->value();
     coeffs.dy = ui->dy_box->value();
     coeffs.dz = ui->dz_box->value();
 
@@ -72,7 +71,7 @@ void MainWindow::on_move_button_clicked(void)
     request.task = MOVE;
     request.move = coeffs;
 
-    err_t error_code = task_manager(request);
+    err_t error_code = request_handler(request);
     if (error_code)
     {
         handle_error(error_code);
@@ -97,7 +96,7 @@ void MainWindow::on_scale_button_clicked(void)
     request.task = SCALE;
     request.scale = coeffs;
 
-    err_t error_code = task_manager(request);
+    err_t error_code = request_handler(request);
     if (error_code)
     {
         handle_error(error_code);
@@ -122,7 +121,7 @@ void MainWindow::on_turn_button_clicked(void)
     request.task = TURN;
     request.turn = coeffs;
 
-    err_t error_code = task_manager(request);
+    err_t error_code = request_handler(request);
     if (error_code)
     {
         handle_error(error_code);
