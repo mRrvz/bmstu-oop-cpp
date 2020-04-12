@@ -31,10 +31,13 @@ public:
     void insert(iterator<T> &iterator, const list<T> &list);
 
     void insert(const_iterator<T> &iterator, const T &data);
-    void insert(const_iterator<T> &iterator, const list<T> &list)
+    void insert(const_iterator<T> &iterator, const list<T> &list);
 
     void push_back(const T &data);
     void push_back(const list<T> &list);
+
+    void append(const T &data);
+    void append(const list<T> &list);
 
     void pop_front(void);
     void pop_back(void);

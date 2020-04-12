@@ -119,6 +119,18 @@ void list<T>::push_back(const list<T> &list)
 }
 
 template <typename T>
+void list<T>::append(const T &data)
+{
+
+}
+
+template <typename T>
+void list<T>::append(const list<T> &list)
+{
+
+}
+
+template <typename T>
 void list<T>::pop_front(void)
 {
 
