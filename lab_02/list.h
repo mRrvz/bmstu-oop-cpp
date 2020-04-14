@@ -6,32 +6,34 @@
 
 #include "base_container.h"
 #include "list_node.h"
+#include "iterator.h"
+#include "const_iterator.h"
 
 template <typename T>
 class list : public base_container
 {
 public:
     list();
-    list(set<T> &&set);
-    list(const set<T> &set);
+    list(list<T> &&list);
+    list(const list<T> &list);
     list(T *array, size_t size);
     list(std::initializer_list<T> args);
-    list(iterator<T> &begin, iterator <T>&end);
+    list(list_iterator<T> &begin, list_iterator <T>&end);
 
     ~list();
 
-    bool is_empty() const;
-    size_t size() const;
-    void clear();
+    bool is_empty(void) const;
+    size_t get_size(void) const;
+    void clear(void);
 
     void push_front(const T &data);
     void push_front(const list<T> &list);
 
-    void insert(iterator<T> &iterator, const T &data);
-    void insert(iterator<T> &iterator, const list<T> &list);
+    void insert(list_iterator<T> &iterator, const T &data);
+    void insert(list_iterator<T> &iterator, const list<T> &list);
 
-    void insert(const_iterator<T> &iterator, const T &data);
-    void insert(const_iterator<T> &iterator, const list<T> &list);
+    void insert(const_list_iterator<T> &iterator, const T &data);
+    void insert(const_list_iterator<T> &iterator, const list<T> &list);
 
     void push_back(const T &data);
     void push_back(const list<T> &list);
@@ -41,7 +43,7 @@ public:
 
     void pop_front(void);
     void pop_back(void);
-    void remove(iterator<T> &iterator);
+    void remove(list_iterator<T> &iterator);
 
     void resize(const size_t &size);
     void revesre(void);
@@ -53,20 +55,22 @@ public:
     list<T> &operator += (const list<T> &list);
     list<T> &operator + (const list<T> &list);
 
-    iterator<T> begin();
-    const_iterator<T> cbegin() const;
+    list_iterator<T> begin(void);
+    const_list_iterator<T> cbegin(void) const;
 
-    iterator<T> end();
-    const_iterator<T> cend() const;
+    list_iterator<T> end(void);
+    const_list_iterator<T> cend(void) const;
 
 protected:
-    std::shared_ptr<list_node<T>> head(void);
-    std::shared_ptr<list_node<T>> tail(void);
+    std::shared_ptr<list_node<T>> get_head(void);
+    std::shared_ptr<list_node<T>> get_tail(void);
 
 private:
     size_t size;
     std::shared_ptr<list_node<T>> head;
     std::shared_ptr<list_node<T>> tail;
 };
+
+#include "list.hpp"
 
 #endif
