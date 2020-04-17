@@ -3,7 +3,7 @@
 
 class base_iterator
 {
-
+    virtual void next(void) = 0;
 };
 
 #endif

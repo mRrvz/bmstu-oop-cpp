@@ -16,6 +16,7 @@ public:
     void set_null(void);
 
     const T &get(void) const;
+    T &get_value(void);
     std::shared_ptr<list_node<T>> get_next(void);
 
     bool operator == (const std::shared_ptr<list_node<T>> &node) const;

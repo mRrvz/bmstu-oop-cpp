@@ -15,43 +15,47 @@ class list : public base_container
 public:
     list();
     list(list<T> &&list);
-    list(const list<T> &list);
+    list(list<T> &list);
     list(T *array, size_t size);
-    list(std::initializer_list<T> args);
+    list(std::initializer_list<T> nodes);
     list(list_iterator<T> &begin, list_iterator <T>&end);
 
-    ~list();
+    ~list() = default;
 
-    bool is_empty(void) const;
-    size_t get_size(void) const;
-    void clear(void);
+    virtual bool is_empty(void) const;
+    virtual size_t get_size(void) const;
+    virtual void clear(void);
 
     void push_front(const T &data);
-    void push_front(const list<T> &list);
+    void push_front(const std::shared_ptr<list_node<T>> &node);
+    void push_front(list<T> &list);
 
-    void insert(list_iterator<T> &iterator, const T &data);
-    void insert(list_iterator<T> &iterator, const list<T> &list);
+    void insert(const list_iterator<T> &iterator, const T &data);
+    void insert(const list_iterator<T> &iterator, const list<T> &list);
 
-    void insert(const_list_iterator<T> &iterator, const T &data);
-    void insert(const_list_iterator<T> &iterator, const list<T> &list);
+    void insert(const const_list_iterator<T> &iterator, const T &data);
+    void insert(const const_list_iterator<T> &iterator, const list<T> &list);
 
     void push_back(const T &data);
-    void push_back(const list<T> &list);
+    void push_back(const std::shared_ptr<list_node<T>> &node);
+    void push_back(list<T> &list);
 
     void append(const T &data);
+    void append(const list_node<T> &node);
     void append(const list<T> &list);
 
     void pop_front(void);
     void pop_back(void);
-    void remove(list_iterator<T> &iterator);
+    void remove(const list_iterator<T> &iterator);
 
     void resize(const size_t &size);
-    void revesre(void);
+    void reverse(void);
 
     bool operator == (const list<T> &list) const;
     bool operator != (const list<T> &list) const;
 
     list<T> &operator = (const list<T> &list);
+    list<T> &operator = (const list<T> &&list);
     list<T> &operator += (const list<T> &list);
     list<T> &operator + (const list<T> &list);
 

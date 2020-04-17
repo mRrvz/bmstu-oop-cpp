@@ -16,22 +16,23 @@ public:
 
     ~list_iterator() = default;
 
-    void next(void);
+    virtual void next(void);
 
     std::shared_ptr<list_node<T>> operator ->();
-    const T &operator *() const;
+    T &operator *() const;
 
     list_iterator<T> &operator += (size_t size);
     list_iterator<T> operator + (size_t size);
-    list_iterator<T> operator = (list_iterator<T> &iterator);
+    list_iterator<T> operator = (const list_iterator<T> &iterator);
     list_iterator<T> &operator ++ ();
+    list_iterator<T> operator ++ (int);
 
-    bool operator != (list_iterator<T> &iterator) const;
-    bool operator == (list_iterator<T> &iterator) const;
-    bool operator <= (list_iterator<T> &iterator) const;
-    bool operator >= (list_iterator<T> &iterator) const;
-    bool operator <  (list_iterator<T> &iterator) const;
-    bool operator >  (list_iterator<T> &iterator) const;
+    bool operator != (const list_iterator<T> &iterator) const;
+    bool operator == (const list_iterator<T> &iterator) const;
+    bool operator <= (const list_iterator<T> &iterator) const;
+    bool operator >= (const list_iterator<T> &iterator) const;
+    bool operator <  (const list_iterator<T> &iterator) const;
+    bool operator >  (const list_iterator<T> &iterator) const;
 
 private:
     std::weak_ptr<list_node<T>> ptr;

@@ -28,13 +28,13 @@ void list_iterator<T>::next(void)
 template <typename T>
 std::shared_ptr<list_node<T>> list_iterator<T>::operator ->()
 {
-    return this->ptr;
+    return this->ptr.lock();
 }
 
 template <typename T>
-const T &list_iterator<T>::operator *() const
+T &list_iterator<T>::operator *() const
 {
-    return this->ptr.lock()->get();
+    return this->ptr.lock()->get_value();
 }
 
 template <typename T>
@@ -57,9 +57,9 @@ list_iterator<T> list_iterator<T>::operator + (size_t size)
 }
 
 template <typename T>
-list_iterator<T> list_iterator<T>::operator = (list_iterator<T> &iterator)
+list_iterator<T> list_iterator<T>::operator = (const list_iterator<T> &iterator)
 {
-    this-ptr = iterator.ptr.lock();
+    this->ptr = iterator.ptr.lock();
     return *this;
 }
 
@@ -71,37 +71,45 @@ list_iterator<T> &list_iterator<T>::operator ++ ()
 }
 
 template <typename T>
-bool list_iterator<T>::operator != (list_iterator<T> &iterator) const
+list_iterator<T> list_iterator<T>::operator ++ (int)
+{
+    list_iterator<T> new_iterator(*this);
+    this->next();
+    return new_iterator;
+}
+
+template <typename T>
+bool list_iterator<T>::operator != (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() != iterator.ptr.lock();
 }
 
 template <typename T>
-bool list_iterator<T>::operator == (list_iterator<T> &iterator) const
+bool list_iterator<T>::operator == (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() == iterator.ptr.lock();
 }
 
 template <typename T>
-bool list_iterator<T>::operator <= (list_iterator<T> &iterator) const
+bool list_iterator<T>::operator <= (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() <= iterator.ptr.lock();
 }
 
 template <typename T>
-bool list_iterator<T>::operator >= (list_iterator<T> &iterator) const
+bool list_iterator<T>::operator >= (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() >= iterator.ptr.lock();
 }
 
 template <typename T>
-bool list_iterator<T>::operator < (list_iterator<T> &iterator) const
+bool list_iterator<T>::operator < (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() < iterator.ptr.lock();
 }
 
 template <typename T>
-bool list_iterator<T>::operator > (list_iterator<T> &iterator) const
+bool list_iterator<T>::operator > (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() > iterator.ptr.lock();
 }

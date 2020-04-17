@@ -40,7 +40,13 @@ void list_node<T>::set_null(void)
 }
 
 template <typename T>
-const T& list_node<T>::get(void) const
+const T &list_node<T>::get(void) const
+{
+    return this->data;
+}
+
+template <typename T>
+T &list_node<T>::get_value(void)
 {
     return this->data;
 }

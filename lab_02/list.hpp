@@ -18,15 +18,29 @@ list<T>::list(list<T> &&list)
 }
 
 template <typename T>
-list<T>::list(const list<T> &list)
+list<T>::list(list<T> &list)
 {
+    this->size = 0;
+    this->head = nullptr;
+    this->tail = nullptr;
 
+    for (auto node: list)
+    {
+        std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
+        if (!temp_node)
+        {
+            //throw;
+        }
+
+        temp_node->set(node);
+        this->append(temp_node);
+    }
 }
 
 template <typename T>
 list<T>::list(T *array, size_t size)
 {
-    if (!array || !size)
+    if (!array || size <= 0)
     {
         std::cout << "ERR";
     }
@@ -37,7 +51,6 @@ list<T>::list(T *array, size_t size)
 
     for (int i = 0; i < size; i++)
     {
-        std::cout << "FFF\n";
         this->append(array[i]);
     }
 }
@@ -64,17 +77,10 @@ list<T>::list(list_iterator<T> &begin, list_iterator<T> &end)
     this->head = nullptr;
     this->tail = nullptr;
 
-    for (auto current = begin; current != end; ++current)
+    for (auto current = begin; current != end; current++)
     {
         this->append(*current);
     }
-}
-
-template <typename T>
-list<T>::~list()
-{
-    //delete
-
 }
 
 template <typename T>
@@ -92,56 +98,149 @@ size_t list<T>::get_size(void) const
 template <typename T>
 void list<T>::clear(void)
 {
-    //addd
+    while (this->size)
+    {
+        this->pop_front();
+    }
 }
 
 template <typename T>
 void list<T>::push_front(const T &data)
 {
+    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
+    if (!temp_node)
+    {
 
+    }
+
+    temp_node->set(data);
+    this->push_front(temp_node);
 }
 
 template <typename T>
-void list<T>::push_front(const list<T> &list)
+void list<T>::push_front(const std::shared_ptr<list_node<T>> &node)
 {
+    node->set_next(this->head);
+    this->head = node;
+    this->size++;
+}
 
+template <typename T>
+void list<T>::push_front(list<T> &list)
+{
+    for (int i = 0; i < list.get_size(); i++)
+    {
+        this->insert(this->begin() + i, *(list.begin() + i));
+    }
 }
 
 
 template <typename T>
-void list<T>::insert(list_iterator<T> &iterator, const T &data)
+void list<T>::insert(const list_iterator<T> &iterator, const T &data)
 {
+    // if ?
+    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
+    if (!temp_node)
+    {
 
+    }
+
+    temp_node->set(data);
+
+    if (iterator == this->begin())
+    {
+        push_front(temp_node);
+    }
+    else if (iterator == this->end())
+    {
+        this->append(temp_node);
+    }
+    else
+    {
+        list_iterator<T> temp_iterator = this->begin();
+        for (; temp_iterator + 1 != iterator; temp_iterator++);
+
+        temp_node->set_next(temp_iterator->get_next());
+        temp_iterator->set_next(temp_node);
+        this->size++;
+    }
+}
+
+
+template <typename T>
+void list<T>::insert(const list_iterator<T> &iterator, const list<T> &list)
+{
+    for (int i = 0; i < list.get_size(); i++)
+    {
+        insert(iterator, *(list.cbegin() + i));
+    }
 }
 
 template <typename T>
-void list<T>::insert(list_iterator<T> &iterator, const list<T> &list)
+void list<T>::insert(const const_list_iterator<T> &iterator, const T &data)
 {
+    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
+    if (!temp_node)
+    {
 
+    }
+
+    temp_node->set(data);
+
+    if (iterator == this->cbegin())
+    {
+        push_front(temp_node);
+    }
+    else if (iterator == this->cend())
+    {
+        this->append(temp_node);
+    }
+    else
+    {
+        const_list_iterator<T> temp_iterator = this->cbegin();
+        for (; temp_iterator + 1 != iterator; temp_iterator++);
+
+        temp_node->set_next(temp_iterator->get_next());
+        temp_iterator->set_next(temp_node);
+        this->size++;
+    }
 }
 
 template <typename T>
-void list<T>::insert(const_list_iterator<T> &iterator, const T &data)
+void list<T>::insert(const const_list_iterator<T> &iterator, const list<T> &list)
 {
-
-}
-
-template <typename T>
-void list<T>::insert(const_list_iterator<T> &iterator1, const list<T> &list)
-{
-
+    for (int i = 0; i < list.get_size(); i++)
+    {
+        insert(iterator, *(list.cbegin() + i));
+    }
 }
 
 template <typename T>
 void list<T>::push_back(const T &data)
 {
+    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
+    if (!temp_node)
+    {
 
+    }
+
+    temp_node->set(data);
+    this->push_back(temp_node);
 }
 
 template <typename T>
-void list<T>::push_back(const list<T> &list)
+void list<T>::push_back(const std::shared_ptr<list_node<T>> &node)
 {
+    this->append(node);
+}
 
+template <typename T>
+void list<T>::push_back(list<T> &list)
+{
+    for (auto node: list)
+    {
+        this->append(node);
+    }
 }
 
 template <typename T>
@@ -154,7 +253,19 @@ void list<T>::append(const T &data)
     }
 
     temp_node->set(data);
-    std::cout << "xd";
+    this->append(temp_node);
+}
+
+template <typename T>
+void list<T>::append(const list_node<T> &node)
+{
+    std::shared_ptr <list_node<T>> temp_node(new list_node<T>);
+    if (temp_node == nullptr)
+    {
+        //throw
+    }
+
+    temp_node->set(node.get());
 
     if (!this->size)
     {
@@ -163,7 +274,6 @@ void list<T>::append(const T &data)
     }
     else
     {
-        //std::shared_ptr<list_node<T>> temp_tail = this->tail;
         this->tail->set_next(temp_node);
         this->tail = temp_node;
     }
@@ -174,68 +284,166 @@ void list<T>::append(const T &data)
 template <typename T>
 void list<T>::append(const list<T> &list)
 {
-
+    this->push_back(list);
 }
 
 template <typename T>
 void list<T>::pop_front(void)
 {
+    if (!this->size)
+    {
 
+    }
+
+    if (this->size == 1)
+    {
+        this->head = nullptr;
+        this->tail = nullptr;
+    }
+    else
+    {
+        this->head = this->head->get_next();
+    }
+
+    this->size--;
 }
 
 template <typename T>
 void list<T>::pop_back(void)
 {
+    if (!this->size)
+    {
 
+    }
+
+    if (this->size == 1)
+    {
+        this->head = nullptr;
+        this->tail = nullptr;
+    }
+    else
+    {
+        std::shared_ptr<list_node<T>> temp_node = this->head;
+        for (; temp_node->get_next() != this->tail; temp_node = temp_node->get_next());
+
+        temp_node->set_null();
+        this->tail = temp_node;
+        this->tail->set_null();
+    }
+
+    this->size--;
 }
 
 template <typename T>
-void list<T>::remove(list_iterator<T> &iterator)
+void list<T>::remove(const list_iterator<T> &iterator)
 {
+    if (iterator == this->begin())
+    {
+        pop_front();
+    }
+    else
+    {
+        list_iterator<T> temp_iterator = this->begin();
+        for (; temp_iterator + 1 != iterator; temp_iterator++);
 
+        temp_iterator->set_next(temp_iterator->get_next()->get_next());
+        this->size--;
+    }
 }
 
 template <typename T>
 void list<T>::resize(const size_t &size)
 {
+    if (size <= 0)
+    {
+        //throw
+    }
 
+    for (int i = 0; i < size && get_size(); i++)
+    {
+        pop_back();
+        this->size--;
+    }
 }
 
 template <typename T>
-void list<T>::revesre(void)
+void list<T>::reverse(void)
 {
+    std::shared_ptr<list_node<T>> current(this->head);
+    std::shared_ptr<list_node<T>> next(nullptr);
+    std::shared_ptr<list_node<T>> prev(nullptr);
 
+    while (current)
+    {
+        next = current->get_next();
+        current->set_next(prev);
+        prev = current;
+        current = next;
+    }
+
+    prev = this->head;
+    this->head = this->tail;
+    this->tail = prev;
+    this->tail->set_null();
 }
 
 template <typename T>
 bool list<T>::operator == (const list<T> &list) const
 {
-    return true;
+    auto fst = this->cbegin();
+    auto snd = list.cbegin();
+
+    for (; fst != this->cend() && snd != list.cend(); ++fst, ++snd)
+    {
+        if (fst->get() != snd->get())
+        {
+            return false;
+        }
+    }
+
+    return this->size == list.get_size();
 }
 
 template <typename T>
 bool list<T>::operator != (const list<T> &list) const
 {
-    return true;
+    return !(*this == list);
 }
 
 
 template <typename T>
 list<T> &list<T>::operator = (const list<T> &list)
 {
+    clear();
 
+    this->size = 0;
+    this->head = nullptr;
+    this->tail = nullptr;
+
+    push_back(list);
+    return *this;
+}
+
+template <typename T>
+list<T> &list<T>::operator = (const list<T> &&list)
+{
+    this->size = list.size;
+    this->head = list.head;
+    this->tail = list.tail;
 }
 
 template <typename T>
 list<T> &list<T>::operator += (const list<T> &list)
 {
-
+    this->append(list);
+    return *this;
 }
 
 template <typename T>
 list<T> &list<T>::operator + (const list<T> &list)
 {
-
+    this->append(list);
+    return *this;
 }
 
 template <typename T>
