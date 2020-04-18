@@ -141,6 +141,12 @@ void list<T>::push_front(const std::shared_ptr<list_node<T>> &node)
 
     node->set_next(this->head);
     this->head = node;
+
+    if (!this->size)
+    {
+        this->tail = this->head;
+    }
+
     this->size++;
 }
 
@@ -392,18 +398,18 @@ void list<T>::remove(const list_iterator<T> &iterator)
 }
 
 template <typename T>
-void list<T>::resize(const size_t &size)
+void list<T>::resize(const size_t &new_size)
 {
-    if (size <= 0)
+    if (new_size <= 0)
     {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw size_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
 
-    for (int i = 0; i < size && get_size(); i++)
+    size_t old_size = this->get_size();
+    for (int i = 0; i < (old_size - new_size) && get_size(); i++)
     {
         pop_back();
-        this->size--;
     }
 }
 
@@ -476,14 +482,14 @@ list<T> &list<T>::operator = (const list<T> &&list)
 template <typename T>
 list<T> &list<T>::operator += (const list<T> &list)
 {
-    this->append(list);
+    this->push_back(list);
     return *this;
 }
 
 template <typename T>
-list<T> &list<T>::operator + (const list<T> &list)
+list<T> &list<T>::operator + (const list<T> list)
 {
-    this->append(list);
+    this->push_back(list);
     return *this;
 }
 

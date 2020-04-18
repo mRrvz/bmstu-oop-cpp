@@ -53,7 +53,7 @@ public:
     list<T> &operator = (const list<T> &list);
     list<T> &operator = (const list<T> &&list);
     list<T> &operator += (const list<T> &list);
-    list<T> &operator + (const list<T> &list);
+    list<T> &operator + (const list<T> list);
 
     list_iterator<T> begin(void);
     const_list_iterator<T> cbegin(void) const;

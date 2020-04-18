@@ -3,6 +3,7 @@
 
 #include <exception>
 #include <string>
+#include <cstring>
 
 class base_error : public std::exception
 {
@@ -10,15 +11,18 @@ public:
     base_error(std::string time,
         std::string filename, std::string classname, std::string methodname)
     {
-        error_info = "Time: " + time + \
-                     "\nFile: " + filename + \
+        error_info = "\nTime: " + time + \
+                     "File: " + filename + \
                      "\nClass: " + classname + \
                      "\nMethod: " + methodname;
     }
 
     virtual const char* what() const noexcept override
     {
-        return error_info.c_str();
+        std::string message = "\nERROR: Something is wrong with your list." + error_info;
+        char *cmessage = new char[1 + message.size()];
+        std::strcpy(cmessage, message.c_str());
+        return cmessage;
     }
 
 protected:
@@ -33,7 +37,10 @@ public:
 
     virtual const char* what() const noexcept override
     {
-        return ("Error while memory allocation. " + error_info).c_str();
+        std::string message = "\nERROR: Unable to allocate memory. " + error_info;
+        char *cmessage = new char[1 + message.size()];
+        std::strcpy(cmessage, message.c_str());
+        return cmessage;
     }
 };
 
@@ -45,7 +52,10 @@ public:
 
     virtual const char* what() const noexcept override
     {
-        return ("List is empty. " + error_info).c_str();
+        std::string message = "\nERROR: List is empty. " + error_info;
+        char *cmessage = new char[1 + message.size()];
+        std::strcpy(cmessage, message.c_str());
+        return cmessage;
     }
 };
 
@@ -57,7 +67,10 @@ public:
 
     virtual const char* what() const noexcept override
     {
-        return ("Invalid iterator. " + error_info).c_str();
+        std::string message = "\nERROR: Invalid iterator. " + error_info;
+        char *cmessage = new char[1 + message.size()];
+        std::strcpy(cmessage, message.c_str());
+        return cmessage;
     }
 };
 
@@ -69,7 +82,10 @@ public:
 
     virtual const char* what() const noexcept override
     {
-        return ("Invalid pointer. " + error_info).c_str();
+        std::string message = "\nERROR: Invalid pointer. " + error_info;
+        char *cmessage = new char[1 + message.size()];
+        std::strcpy(cmessage, message.c_str());
+        return cmessage;
     }
 };
 
@@ -81,7 +97,10 @@ public:
 
     virtual const char* what() const noexcept override
     {
-        return ("The size passed to the method is invalid. " + error_info).c_str();
+        std::string message = "\nERROR: The size passed to the method is invalid." + error_info;
+        char *cmessage = new char[1 + message.size()];
+        std::strcpy(cmessage, message.c_str());
+        return cmessage;
     }
 };
 
