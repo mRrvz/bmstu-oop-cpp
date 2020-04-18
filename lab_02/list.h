@@ -3,11 +3,14 @@
 
 #include <initializer_list>
 #include <memory>
+#include <chrono>
 
 #include "base_container.h"
 #include "list_node.h"
 #include "iterator.h"
 #include "const_iterator.h"
+#include "errors.h"
+
 
 template <typename T>
 class list : public base_container
@@ -16,9 +19,9 @@ public:
     list();
     list(list<T> &&list);
     list(list<T> &list);
-    list(T *array, size_t size);
+    list(T *const array, const size_t &size);
     list(std::initializer_list<T> nodes);
-    list(list_iterator<T> &begin, list_iterator <T>&end);
+    list(const list_iterator<T> &begin, const list_iterator <T>&end);
 
     ~list() = default;
 
@@ -27,22 +30,15 @@ public:
     virtual void clear(void);
 
     void push_front(const T &data);
-    void push_front(const std::shared_ptr<list_node<T>> &node);
-    void push_front(list<T> &list);
+    void push_front(const list<T> &list);
 
     void insert(const list_iterator<T> &iterator, const T &data);
     void insert(const list_iterator<T> &iterator, const list<T> &list);
-
     void insert(const const_list_iterator<T> &iterator, const T &data);
     void insert(const const_list_iterator<T> &iterator, const list<T> &list);
 
     void push_back(const T &data);
-    void push_back(const std::shared_ptr<list_node<T>> &node);
-    void push_back(list<T> &list);
-
-    void append(const T &data);
-    void append(const list_node<T> &node);
-    void append(const list<T> &list);
+    void push_back(const list<T> &list);
 
     void pop_front(void);
     void pop_back(void);
@@ -68,6 +64,8 @@ public:
 protected:
     std::shared_ptr<list_node<T>> get_head(void);
     std::shared_ptr<list_node<T>> get_tail(void);
+    void push_back(const std::shared_ptr<list_node<T>> &node);
+    void push_front(const std::shared_ptr<list_node<T>> &node);
 
 private:
     size_t size;

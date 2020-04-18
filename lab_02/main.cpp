@@ -37,7 +37,7 @@ int main(void)
 
     std::cout << "\nConstructor 6 test: ";
     auto fst = list3.begin();
-    auto end = list3.end();
+    auto end = list3.begin() + 4;
     list<int> list6(fst, end);
     print_list(list6);
 
@@ -49,9 +49,9 @@ int main(void)
     std::cout << "\nPush front methods: ";
     list6.push_front(6);
 
-    std::shared_ptr<list_node<int>> node(new list_node<int>);
-    node->set(7);
-    list6.push_front(node);
+    //std::shared_ptr<list_node<int>> node(new list_node<int>);
+    //node->set(7);
+    //list6.push_front(node);
 
     list<int> list7 = { 10, 9, 8, 7, 6, 5 };
     list6.push_front(list7);
@@ -66,6 +66,9 @@ int main(void)
     list<int> list9 = { 999, 228, 400 };
     //auto x = list8.begin();
     list8.insert(list8.cbegin() + 2, list9);
+    list8.push_back(list9);
+    std::cout << "\npushback:";
+    print_list(list8);
     //list8.remove(list8.begin() + 2);
     //vec.insert(vec.cbegin(), 228);
     //auto y = vec.begin();
@@ -73,8 +76,12 @@ int main(void)
     std::cout << "\napend by list: ";
     print_list(list8);
     std::cout << "\ndelete by lsi: ";
-    list8.remove(list8.begin() );
+    //list8.remove(list8.begin() );
     print_list(list8);
+
+    list<int> list10 = { };
+    list10.pop_front();
+
 
 
     //list7.push_back(list6);

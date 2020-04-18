@@ -14,12 +14,14 @@ public:
     ~const_list_iterator() = default;
 
     virtual void next(void);
+    virtual bool is_invalid(void) const;
 
     const std::shared_ptr<list_node<T>> operator ->() const;
     const T &operator *() const;
 
-    const_list_iterator<T> &operator += (size_t size);
-    const_list_iterator<T> operator + (size_t size);
+    const_list_iterator<T> &operator += (const size_t &size);
+    const_list_iterator<T> operator + (const size_t &size) const;
+    const_list_iterator<T> operator = (const list_iterator<T> &iterator);
     const_list_iterator<T> &operator ++ ();
     const_list_iterator<T> operator ++ (int);
 

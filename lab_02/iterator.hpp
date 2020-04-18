@@ -4,11 +4,11 @@
 template <typename T>
 list_iterator<T>::list_iterator()
 {
-    this->ptr = nullptr;
+    this->ptr.lock() = nullptr;
 }
 
 template <typename T>
-list_iterator<T>::list_iterator(std::shared_ptr<list_node<T>> &node)
+list_iterator<T>::list_iterator(const std::shared_ptr<list_node<T>> &node)
 {
     this->ptr = node;
 }
@@ -26,6 +26,12 @@ void list_iterator<T>::next(void)
 }
 
 template <typename T>
+bool list_iterator<T>::is_invalid(void) const
+{
+    return this->ptr.lock() == nullptr;
+}
+
+template <typename T>
 std::shared_ptr<list_node<T>> list_iterator<T>::operator ->()
 {
     return this->ptr.lock();
@@ -38,9 +44,9 @@ T &list_iterator<T>::operator *() const
 }
 
 template <typename T>
-list_iterator<T> &list_iterator<T>::operator += (size_t size)
+list_iterator<T> &list_iterator<T>::operator += (const size_t &size)
 {
-    while (size--)
+    for (int i = 0; i < size; i++)
     {
         this->next();
     }
@@ -49,7 +55,7 @@ list_iterator<T> &list_iterator<T>::operator += (size_t size)
 }
 
 template <typename T>
-list_iterator<T> list_iterator<T>::operator + (size_t size)
+list_iterator<T> list_iterator<T>::operator + (const size_t &size) const
 {
     list_iterator<T> new_iterator(*this);
     new_iterator += size;

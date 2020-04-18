@@ -1,6 +1,8 @@
 #ifndef __LIST_NODE_H__
 #define __LIST_NODE_H__
 
+#include "errors.h"
+
 template <typename T>
 class list_node
 {
