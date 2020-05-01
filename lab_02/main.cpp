@@ -5,10 +5,7 @@
 
 void print_list(list<int> &list)
 {
-    for (auto node: list)
-    {
-        std::cout << node << " ";
-    }
+    std::cout << list;
 }
 
 int main(void)
@@ -166,6 +163,13 @@ int main(void)
     {
         std::cout << *iterator2 << " ";
     }
+
+    list<int> list11 = { 1, 2, 3 };
+    list<int> list12 = { 4, 5, 6 };
+
+    std::cout << "\nMerge test: ";
+    list12.merge(list11);
+    print_list(list12);
 
 
     return 0;

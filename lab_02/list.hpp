@@ -398,6 +398,13 @@ void list<T>::remove(const list_iterator<T> &iterator)
 }
 
 template <typename T>
+list<T> &list<T>::merge(const list<T> &list)
+{
+    this->push_back(list);
+    return *this;
+}
+
+template <typename T>
 void list<T>::resize(const size_t &new_size)
 {
     if (new_size <= 0)
@@ -486,11 +493,31 @@ list<T> &list<T>::operator += (const list<T> &list)
     return *this;
 }
 
-template <typename T>
-list<T> &list<T>::operator + (const list<T> list)
+template <typename T_>
+list<T_> &operator + (const list<T_> &list1, const list <T_> &list2)
 {
-    this->push_back(list);
-    return *this;
+    list<T_> *new_list = new list<T_>;
+    if (!new_list)
+    {
+        auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        throw memory_error(ctime(&timenow), __FILE__, "List", __FUNCTION__);
+    }
+
+    new_list->push_back(list1);
+    new_list->push_back(list2);
+
+    return *new_list;
+}
+
+template<typename T_>
+std::ostream &operator << (std::ostream &os, const list<T_> &list)
+{
+    for (auto iterator = list.cbegin(); iterator != list.cend(); iterator++)
+    {
+        os << *iterator << " ";
+    }
+
+    return os;
 }
 
 template <typename T>

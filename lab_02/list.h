@@ -11,14 +11,13 @@
 #include "const_iterator.h"
 #include "errors.h"
 
-
 template <typename T>
 class list : public base_container
 {
 public:
     list();
-    list(list<T> &&list);
     list(list<T> &list);
+    list(list<T> &&list);
     list(T *const array, const size_t &size);
     list(std::initializer_list<T> nodes);
     list(const list_iterator<T> &begin, const list_iterator <T>&end);
@@ -44,6 +43,7 @@ public:
     void pop_back(void);
     void remove(const list_iterator<T> &iterator);
 
+    list<T> &merge(const list<T> &list);
     void resize(const size_t &size);
     void reverse(void);
 
@@ -53,7 +53,12 @@ public:
     list<T> &operator = (const list<T> &list);
     list<T> &operator = (const list<T> &&list);
     list<T> &operator += (const list<T> &list);
-    list<T> &operator + (const list<T> list);
+
+    template<typename T_>
+    friend list<T_> &operator + (const list<T_> &list1, const list <T_> &list2);
+
+    template<typename T_>
+    friend std::ostream &operator << (std::ostream &os, const list<T_> &list);
 
     list_iterator<T> begin(void);
     const_list_iterator<T> cbegin(void) const;
