@@ -16,49 +16,52 @@ class list : public base_container
 {
 public:
     list();
+
     list(list<T> &list);
+    list<T> &operator = (const list<T> &list);
+
     list(list<T> &&list);
+    list<T> &operator = (const list<T> &&list);
+
     list(T *const array, const size_t &size);
     list(std::initializer_list<T> nodes);
-    list(const list_iterator<T> &begin, const list_iterator <T>&end);
+
+    template <typename T_>
+    list(const T_ &begin, const T_ &end);
 
     ~list() = default;
 
-    virtual bool is_empty(void) const;
-    virtual size_t get_size(void) const;
-    virtual void clear(void);
+    virtual bool is_empty() const;
+    virtual void clear();
 
-    void push_front(const T &data);
-    void push_front(const list<T> &list);
+    list_iterator<T> push_front(const T &data);
+    list_iterator<T> push_front(const list<T> &list);
 
-    void insert(const list_iterator<T> &iterator, const T &data);
-    void insert(const list_iterator<T> &iterator, const list<T> &list);
-    void insert(const const_list_iterator<T> &iterator, const T &data);
-    void insert(const const_list_iterator<T> &iterator, const list<T> &list);
+    list_iterator<T> insert(const list_iterator<T> &iterator, const T &data);
+    list_iterator<T> insert(const list_iterator<T> &iterator, const list<T> &list);
+    list_iterator<T> insert(const const_list_iterator<T> &iterator, const T &data);
+    list_iterator<T> insert(const const_list_iterator<T> &iterator, const list<T> &list);
 
-    void push_back(const T &data);
-    void push_back(const list<T> &list);
+    list_iterator<T> push_back(const T &data);
+    list_iterator<T> push_back(const list<T> &list);
 
-    void pop_front(void);
-    void pop_back(void);
-    void remove(const list_iterator<T> &iterator);
+    T pop_front(void);
+    T pop_back(void);
+    T remove(const list_iterator<T> &iterator);
+
+    void reverse(void);
 
     list<T> &merge(const list<T> &list);
-    void resize(const size_t &size);
-    void reverse(void);
+    list<T> &merge(const T &data);
+
+    list<T> &operator += (const list<T> &list);
+    list<T> &operator += (const T &data);
+
+    list<T> &operator + (const list<T> &list);
+    list<T> &operator + (const T &data);
 
     bool operator == (const list<T> &list) const;
     bool operator != (const list<T> &list) const;
-
-    list<T> &operator = (const list<T> &list);
-    list<T> &operator = (const list<T> &&list);
-    list<T> &operator += (const list<T> &list);
-
-    template<typename T_>
-    friend list<T_> &operator + (const list<T_> &list1, const list <T_> &list2);
-
-    template<typename T_>
-    friend std::ostream &operator << (std::ostream &os, const list<T_> &list);
 
     list_iterator<T> begin(void);
     const_list_iterator<T> cbegin(void) const;
@@ -69,8 +72,8 @@ public:
 protected:
     std::shared_ptr<list_node<T>> get_head(void);
     std::shared_ptr<list_node<T>> get_tail(void);
-    void push_back(const std::shared_ptr<list_node<T>> &node);
-    void push_front(const std::shared_ptr<list_node<T>> &node);
+    list_iterator<T> push_back(const std::shared_ptr<list_node<T>> &node);
+    list_iterator<T> push_front(const std::shared_ptr<list_node<T>> &node);
 
 private:
     size_t size;

@@ -39,16 +39,22 @@ int main(void)
     print_list(list6);
 
     // Тест виртуальных методов
-    std::cout << "\nVirtual methods: ";
-    std::cout << "Is empty (list6): " << list6.is_empty() << " " << " get_size (list 6): " << list6.get_size();
+    std::cout << "\nIs empty method: ";
+    std::cout << "Is empty (list6): " << list6.is_empty();
 
     std::cout << "\nAfter clear method: ";
     list6.clear();
-    std::cout << "Is empty (list6): " << list6.is_empty() << " " << " get_size (list6): " << list6.get_size();
+    std::cout << "Is empty (list6): " << list6.is_empty();
 
     // Тест push_front методов
     std::cout << "\nPush front by value: ";
-    list6.push_front(6);
+    auto iterator = list6.push_front(6);
+
+    while (iterator != list6.end())
+    {
+        std::cout << " " << *iterator++;
+    }
+
     print_list(list6);
 
     std::cout << "\nPush front by list (list3): ";
@@ -97,11 +103,6 @@ int main(void)
     list8.remove(list8.begin() + 2);
     print_list(list8);
 
-    // Тест resize
-    std::cout << "\nResize list: ";
-    list8.resize(2);
-    print_list(list8);
-
     // Тест reverse
     std::cout << "\nReverse list (list3): ";
     list3.reverse();
@@ -140,10 +141,12 @@ int main(void)
 
     std::cout << "\nTest += operator: ";
     list9 += list10;
+    list9 += 25;
     print_list(list9);
 
     std::cout << "\nTest + operator: ";
-    list9 = list10 + list9;
+    list9 = list10 + list8 + list9;
+    list9 += 777;
     print_list(list9);
 
     // Тест итераторов
@@ -167,10 +170,50 @@ int main(void)
     list<int> list11 = { 1, 2, 3 };
     list<int> list12 = { 4, 5, 6 };
 
+    // Тест merge метода
     std::cout << "\nMerge test: ";
     list12.merge(list11);
+    list12.merge(505);
     print_list(list12);
 
+    // Тест bool оператора
+    std::cout << "\nBool operators test (not constant): ";
+    if (list11.begin())
+    {
+        std::cout << "test1 done ";
+    }
+    else
+    {
+        std::cout << "test1 fail ";
+    }
+
+    if (list11.end())
+    {
+        std::cout << "test2 fail";
+    }
+    else
+    {
+        std::cout << "test2 done";
+    }
+
+    std::cout << "\nBool operators test (constant): ";
+    if (list11.cbegin())
+    {
+        std::cout << "test1 done ";
+    }
+    else
+    {
+        std::cout << "test1 fail ";
+    }
+
+    if (list11.cend())
+    {
+        std::cout << "test2 fail";
+    }
+    else
+    {
+        std::cout << "test2 done";
+    }
 
     return 0;
 }

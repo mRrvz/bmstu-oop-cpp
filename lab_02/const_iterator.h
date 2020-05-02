@@ -1,10 +1,10 @@
 #ifndef __CONST_ITERATOR_H__
 #define __CONST_ITERATOR_H__
 
-#include "base_iterator.h"
+#include <iterator>
 
 template <typename T>
-class const_list_iterator : base_iterator
+class const_list_iterator : std::iterator<std::input_iterator_tag, T>
 {
 public:
     const_list_iterator();
@@ -13,24 +13,21 @@ public:
 
     ~const_list_iterator() = default;
 
-    virtual void next(void);
-    virtual bool is_invalid(void) const;
+    virtual void next();
+    virtual bool is_invalid() const;
 
     const std::shared_ptr<list_node<T>> operator ->() const;
     const T &operator *() const;
+    operator bool() const;
 
-    const_list_iterator<T> &operator += (const size_t &size);
-    const_list_iterator<T> operator + (const size_t &size) const;
+    const_list_iterator<T> &operator += (const int &size);
+    const_list_iterator<T> operator + (const int &size) const;
     const_list_iterator<T> operator = (const list_iterator<T> &iterator);
     const_list_iterator<T> &operator ++ ();
     const_list_iterator<T> operator ++ (int);
 
     bool operator != (const const_list_iterator<T> &iterator) const;
     bool operator == (const const_list_iterator<T> &iterator) const;
-    bool operator <= (const const_list_iterator<T> &iterator) const;
-    bool operator >= (const const_list_iterator<T> &iterator) const;
-    bool operator <  (const const_list_iterator<T> &iterator) const;
-    bool operator >  (const const_list_iterator<T> &iterator) const;
 
 protected:
     std::weak_ptr<list_node<T>> ptr;

@@ -76,8 +76,10 @@ list<T>::list(std::initializer_list<T> nodes)
     }
 }
 
+
 template <typename T>
-list<T>::list(const list_iterator<T> &begin, const list_iterator<T> &end)
+template <typename T_>
+list<T>::list(const T_ &begin, const T_ &end)
 {
     if (begin.is_invalid() || end.is_invalid())
     {
@@ -102,12 +104,6 @@ bool list<T>::is_empty(void) const
 }
 
 template <typename T>
-size_t list<T>::get_size(void) const
-{
-    return this->size;
-}
-
-template <typename T>
 void list<T>::clear(void)
 {
     while (this->size)
@@ -117,7 +113,7 @@ void list<T>::clear(void)
 }
 
 template <typename T>
-void list<T>::push_front(const T &data)
+list_iterator<T> list<T>::push_front(const T &data)
 {
     std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
     if (!temp_node)
@@ -127,11 +123,11 @@ void list<T>::push_front(const T &data)
     }
 
     temp_node->set(data);
-    this->push_front(temp_node);
+    return this->push_front(temp_node);
 }
 
 template <typename T>
-void list<T>::push_front(const std::shared_ptr<list_node<T>> &node)
+list_iterator<T> list<T>::push_front(const std::shared_ptr<list_node<T>> &node)
 {
     if (!node)
     {
@@ -148,19 +144,26 @@ void list<T>::push_front(const std::shared_ptr<list_node<T>> &node)
     }
 
     this->size++;
+
+    list_iterator<T> iterator(node);
+    return iterator;
 }
 
 template <typename T>
-void list<T>::push_front(const list<T> &list)
+list_iterator<T> list<T>::push_front(const list<T> &list)
 {
-    for (int i = 0; i < list.get_size(); i++)
+    list_iterator<T> iterator;
+
+    for (int i = 0; i < list.size; i++)
     {
-        this->insert(this->begin() + i, *(list.cbegin() + i));
+        iterator = this->insert(this->begin() + i, *(list.cbegin() + i));
     }
+
+    return iterator;
 }
 
 template <typename T>
-void list<T>::insert(const list_iterator<T> &iterator, const T &data)
+list_iterator<T> list<T>::insert(const list_iterator<T> &iterator, const T &data)
 {
     if (iterator.is_invalid())
     {
@@ -179,26 +182,27 @@ void list<T>::insert(const list_iterator<T> &iterator, const T &data)
 
     if (iterator == this->begin())
     {
-        push_front(temp_node);
+        return push_front(temp_node);
     }
     else if (iterator == this->end())
     {
-        this->push_back(temp_node);
+        return this->push_back(temp_node);
     }
-    else
-    {
-        list_iterator<T> temp_iterator = this->begin();
-        for (; temp_iterator + 1 != iterator; temp_iterator++);
 
-        temp_node->set_next(temp_iterator->get_next());
-        temp_iterator->set_next(temp_node);
-        this->size++;
-    }
+    list_iterator<T> temp_iterator = this->begin();
+    for (; temp_iterator + 1 != iterator; temp_iterator++);
+
+    temp_node->set_next(temp_iterator->get_next());
+    temp_iterator->set_next(temp_node);
+    this->size++;
+
+    list_iterator<T> insert_iterator(temp_node);
+    return insert_iterator;
 }
 
 
 template <typename T>
-void list<T>::insert(const list_iterator<T> &iterator, const list<T> &list)
+list_iterator<T> list<T>::insert(const list_iterator<T> &iterator, const list<T> &list)
 {
     if (iterator.is_invalid())
     {
@@ -206,14 +210,18 @@ void list<T>::insert(const list_iterator<T> &iterator, const list<T> &list)
         throw iterator_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
 
-    for (int i = 0; i < list.get_size(); i++)
+    list_iterator<T> insert_iterator;
+
+    for (int i = 0; i < list.size; i++)
     {
-        insert(iterator, *(list.cbegin() + i));
+        insert_iterator = insert(iterator, *(list.cbegin() + i));
     }
+
+    return insert_iterator;
 }
 
 template <typename T>
-void list<T>::insert(const const_list_iterator<T> &iterator, const T &data)
+list_iterator<T> list<T>::insert(const const_list_iterator<T> &iterator, const T &data)
 {
     if (iterator.is_invalid())
     {
@@ -232,25 +240,26 @@ void list<T>::insert(const const_list_iterator<T> &iterator, const T &data)
 
     if (iterator == this->cbegin())
     {
-        push_front(temp_node);
+        return push_front(temp_node);
     }
     else if (iterator == this->cend())
     {
-        this->push_back(temp_node);
+        return this->push_back(temp_node);
     }
-    else
-    {
-        const_list_iterator<T> temp_iterator = this->cbegin();
-        for (; temp_iterator + 1 != iterator; temp_iterator++);
 
-        temp_node->set_next(temp_iterator->get_next());
-        temp_iterator->set_next(temp_node);
-        this->size++;
-    }
+    const_list_iterator<T> temp_iterator = this->cbegin();
+    for (; temp_iterator + 1 != iterator; temp_iterator++);
+
+    temp_node->set_next(temp_iterator->get_next());
+    temp_iterator->set_next(temp_node);
+    this->size++;
+
+    list_iterator<T> insert_iterator(temp_node);
+    return insert_iterator;
 }
 
 template <typename T>
-void list<T>::insert(const const_list_iterator<T> &iterator, const list<T> &list)
+list_iterator<T> list<T>::insert(const const_list_iterator<T> &iterator, const list<T> &list)
 {
     if (iterator.is_invalid())
     {
@@ -258,23 +267,30 @@ void list<T>::insert(const const_list_iterator<T> &iterator, const list<T> &list
         throw iterator_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
 
-    for (int i = 0; i < list.get_size(); i++)
+    list_iterator<T> insert_iterator;
+
+    for (int i = 0; i < list.size; i++)
     {
-        insert(iterator, *(list.cbegin() + i));
+        insert_iterator = insert(iterator, *(list.cbegin() + i));
     }
+
+    return insert_iterator;
 }
 
 template <typename T>
-void list<T>::push_back(const list<T> &list)
+list_iterator<T> list<T>::push_back(const list<T> &list)
 {
     for (auto current = list.cbegin(); current != list.cend(); current++)
     {
         this->push_back(*current);
     }
+
+    list_iterator<T> iterator(this->tail);
+    return iterator;
 }
 
 template <typename T>
-void list<T>::push_back(const T &data)
+list_iterator<T> list<T>::push_back(const T &data)
 {
     std::shared_ptr<list_node<T>> node(new list_node<T>);
     if (!node)
@@ -284,11 +300,11 @@ void list<T>::push_back(const T &data)
     }
 
     node->set(data);
-    this->push_back(node);
+    return this->push_back(node);
 }
 
 template <typename T>
-void list<T>::push_back(const std::shared_ptr<list_node<T>> &node)
+list_iterator<T> list<T>::push_back(const std::shared_ptr<list_node<T>> &node)
 {
     if (!node)
     {
@@ -317,16 +333,21 @@ void list<T>::push_back(const std::shared_ptr<list_node<T>> &node)
     }
 
     this->size++;
+
+    list_iterator<T> iterator(this->tail);
+    return iterator;
 }
 
 template <typename T>
-void list<T>::pop_front(void)
+T list<T>::pop_front(void)
 {
     if (!this->size)
     {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw empty_list(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
+
+    T data = this->head->get();
 
     if (this->size == 1)
     {
@@ -339,16 +360,20 @@ void list<T>::pop_front(void)
     }
 
     this->size--;
+
+    return data;
 }
 
 template <typename T>
-void list<T>::pop_back(void)
+T list<T>::pop_back(void)
 {
     if (!this->size)
     {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw empty_list(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
+
+    T data = this->tail->get();
 
     if (this->size == 1)
     {
@@ -366,10 +391,12 @@ void list<T>::pop_back(void)
     }
 
     this->size--;
+
+    return data;
 }
 
 template <typename T>
-void list<T>::remove(const list_iterator<T> &iterator)
+T list<T>::remove(const list_iterator<T> &iterator)
 {
     if (iterator.is_invalid())
     {
@@ -385,16 +412,17 @@ void list<T>::remove(const list_iterator<T> &iterator)
 
     if (iterator == this->begin())
     {
-        pop_front();
+        return pop_front();
     }
-    else
-    {
-        list_iterator<T> temp_iterator = this->begin();
-        for (; temp_iterator + 1 != iterator; temp_iterator++);
 
-        temp_iterator->set_next(temp_iterator->get_next()->get_next());
-        this->size--;
-    }
+    list_iterator<T> temp_iterator = this->begin();
+    for (; temp_iterator + 1 != iterator; temp_iterator++);
+
+    T data = temp_iterator->get();
+    temp_iterator->set_next(temp_iterator->get_next()->get_next());
+    this->size--;
+
+    return data;
 }
 
 template <typename T>
@@ -405,19 +433,10 @@ list<T> &list<T>::merge(const list<T> &list)
 }
 
 template <typename T>
-void list<T>::resize(const size_t &new_size)
+list<T> &list<T>::merge(const T &data)
 {
-    if (new_size <= 0)
-    {
-        auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        throw size_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
-    }
-
-    size_t old_size = this->get_size();
-    for (int i = 0; i < (old_size - new_size) && get_size(); i++)
-    {
-        pop_back();
-    }
+    this->push_back(data);
+    return *this;
 }
 
 template <typename T>
@@ -455,7 +474,7 @@ bool list<T>::operator == (const list<T> &list) const
         }
     }
 
-    return this->size == list.get_size();
+    return this->size == list.size;
 }
 
 template <typename T>
@@ -493,20 +512,25 @@ list<T> &list<T>::operator += (const list<T> &list)
     return *this;
 }
 
-template <typename T_>
-list<T_> &operator + (const list<T_> &list1, const list <T_> &list2)
+template <typename T>
+list<T> &list<T>::operator += (const T &data)
 {
-    list<T_> *new_list = new list<T_>;
-    if (!new_list)
-    {
-        auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-        throw memory_error(ctime(&timenow), __FILE__, "List", __FUNCTION__);
-    }
+    this->push_back(data);
+    return *this;
+}
 
-    new_list->push_back(list1);
-    new_list->push_back(list2);
+template <typename T>
+list<T> &list<T>::operator + (const list<T> &list)
+{
+    this->push_back(list);
+    return *this;
+}
 
-    return *new_list;
+template <typename T>
+list<T> &list<T>::operator + (const T &data)
+{
+    this->push_back(data);
+    return *this;
 }
 
 template<typename T_>

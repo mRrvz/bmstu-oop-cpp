@@ -15,18 +15,14 @@ public:
 
     void set(const T &data);
     void set_next(const std::shared_ptr<list_node<T>> &node);
-    void set_null(void);
+    void set_null();
 
-    const T &get(void) const;
-    T &get_value(void);
-    std::shared_ptr<list_node<T>> get_next(void);
+    const T &get() const;
+    T &get_value();
+    std::shared_ptr<list_node<T>> get_next();
 
     bool operator == (const std::shared_ptr<list_node<T>> &node) const;
     bool operator != (const std::shared_ptr<list_node<T>> &node) const;
-    bool operator >= (const std::shared_ptr<list_node<T>> &node) const;
-    bool operator <= (const std::shared_ptr<list_node<T>> &node) const;
-    bool operator > (const std::shared_ptr<list_node<T>> &node) const;
-    bool operator < (const std::shared_ptr<list_node<T>> &node) const;
 
 private:
     T data;

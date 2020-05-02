@@ -44,7 +44,13 @@ T &list_iterator<T>::operator *() const
 }
 
 template <typename T>
-list_iterator<T> &list_iterator<T>::operator += (const size_t &size)
+list_iterator<T>::operator bool() const
+{
+    return this->ptr.lock() != nullptr;
+}
+
+template <typename T>
+list_iterator<T> &list_iterator<T>::operator += (const int &size)
 {
     for (int i = 0; i < size; i++)
     {
@@ -55,7 +61,7 @@ list_iterator<T> &list_iterator<T>::operator += (const size_t &size)
 }
 
 template <typename T>
-list_iterator<T> list_iterator<T>::operator + (const size_t &size) const
+list_iterator<T> list_iterator<T>::operator + (const int &size) const
 {
     list_iterator<T> new_iterator(*this);
     new_iterator += size;
@@ -94,30 +100,6 @@ template <typename T>
 bool list_iterator<T>::operator == (const list_iterator<T> &iterator) const
 {
     return this->ptr.lock() == iterator.ptr.lock();
-}
-
-template <typename T>
-bool list_iterator<T>::operator <= (const list_iterator<T> &iterator) const
-{
-    return this->ptr.lock() <= iterator.ptr.lock();
-}
-
-template <typename T>
-bool list_iterator<T>::operator >= (const list_iterator<T> &iterator) const
-{
-    return this->ptr.lock() >= iterator.ptr.lock();
-}
-
-template <typename T>
-bool list_iterator<T>::operator < (const list_iterator<T> &iterator) const
-{
-    return this->ptr.lock() < iterator.ptr.lock();
-}
-
-template <typename T>
-bool list_iterator<T>::operator > (const list_iterator<T> &iterator) const
-{
-    return this->ptr.lock() > iterator.ptr.lock();
 }
 
 #endif

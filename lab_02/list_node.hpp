@@ -60,37 +60,13 @@ std::shared_ptr<list_node<T>> list_node<T>::get_next(void)
 template <typename T>
 bool list_node<T>::operator == (const std::shared_ptr<list_node<T>> &node) const
 {
-    return this->data == node->data;
+    return this == node;
 }
 
 template <typename T>
 bool list_node<T>::operator != (const std::shared_ptr<list_node<T>> &node) const
 {
-    return this->data != node->data;
-}
-
-template <typename T>
-bool list_node<T>::operator >= (const std::shared_ptr<list_node<T>> &node) const
-{
-    return this->data >= node->data;
-}
-
-template <typename T>
-bool list_node<T>::operator <= (const std::shared_ptr<list_node<T>> &node) const
-{
-    return this->data <= node->data;
-}
-
-template <typename T>
-bool list_node<T>::operator > (const std::shared_ptr<list_node<T>> &node) const
-{
-    return this->data > node->data;
-}
-
-template <typename T>
-bool list_node<T>::operator < (const std::shared_ptr<list_node<T>> &node) const
-{
-    return this->data < node->data;
+    return this != node;
 }
 
 #endif
