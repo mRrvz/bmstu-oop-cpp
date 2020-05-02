@@ -2,12 +2,13 @@
 #define __ITERATOR_H__
 
 #include <memory>
+#include <iterator>
 
 #include "list_node.h"
 #include "base_iterator.h"
 
 template <typename T>
-class list_iterator : base_iterator
+class list_iterator : std::iterator
 {
 public:
     list_iterator();
