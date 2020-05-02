@@ -52,7 +52,8 @@ int main(void)
 
     while (iterator != list6.end())
     {
-        std::cout << " " << *iterator++;
+        std::cout << " " << (*iterator).get();
+        iterator++;
     }
 
     print_list(list6);
@@ -152,8 +153,8 @@ int main(void)
     // Тест итераторов
     std::cout << "\nTest iterators: ";
     auto iterator1 = list9.begin();
-    *iterator1 = 500;
-    *(++iterator1 + 1) = 400;
+    //*iterator1 = 500;
+    //*(++iterator1 + 1) = 400;
     print_list(list9);
 
     std::cout << "\nTest constant iterators: ";
@@ -164,7 +165,7 @@ int main(void)
 
     while (++iterator2 != iterator3)
     {
-        std::cout << *iterator2 << " ";
+        std::cout << (*iterator2).get() << " ";
     }
 
     list<int> list11 = { 1, 2, 3 };

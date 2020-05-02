@@ -34,6 +34,13 @@ void list_node<T>::set_next(const std::shared_ptr<list_node<T>> &node)
 }
 
 template <typename T>
+void list_node<T>::set_next(const list_node<T> &node)
+{
+    std::shared_ptr<list_node<T>> node_ptr(node);
+    this->next = node_ptr;
+}
+
+template <typename T>
 void list_node<T>::set_null(void)
 {
     this->next = nullptr;
@@ -52,7 +59,7 @@ T &list_node<T>::get_value(void)
 }
 
 template <typename T>
-std::shared_ptr<list_node<T>> list_node<T>::get_next(void)
+std::shared_ptr<list_node<T>> list_node<T>::get_next(void) const
 {
     return this->next;
 }

@@ -33,7 +33,7 @@ list<T>::list(list<T> &list)
             throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
         }
 
-        temp_node->set(node);
+        temp_node->set(node.get());
         this->push_back(temp_node);
     }
 }
@@ -93,7 +93,7 @@ list<T>::list(const T_ &begin, const T_ &end)
 
     for (auto current = begin; current != end + 1; current++)
     {
-        this->push_back(*current);
+        this->push_back((*current).get());
     }
 }
 
@@ -156,7 +156,7 @@ list_iterator<T> list<T>::push_front(const list<T> &list)
 
     for (int i = 0; i < list.size; i++)
     {
-        iterator = this->insert(this->begin() + i, *(list.cbegin() + i));
+        iterator = this->insert(this->begin() + i, (*(list.cbegin() + i)).get());
     }
 
     return iterator;
@@ -214,7 +214,7 @@ list_iterator<T> list<T>::insert(const list_iterator<T> &iterator, const list<T>
 
     for (int i = 0; i < list.size; i++)
     {
-        insert_iterator = insert(iterator, *(list.cbegin() + i));
+        insert_iterator = insert(iterator, (*(list.cbegin() + i)).get());
     }
 
     return insert_iterator;
@@ -247,7 +247,7 @@ list_iterator<T> list<T>::insert(const const_list_iterator<T> &iterator, const T
         return this->push_back(temp_node);
     }
 
-    const_list_iterator<T> temp_iterator = this->cbegin();
+    list_iterator<T> temp_iterator = this->begin();
     for (; temp_iterator + 1 != iterator; temp_iterator++);
 
     temp_node->set_next(temp_iterator->get_next());
@@ -271,7 +271,7 @@ list_iterator<T> list<T>::insert(const const_list_iterator<T> &iterator, const l
 
     for (int i = 0; i < list.size; i++)
     {
-        insert_iterator = insert(iterator, *(list.cbegin() + i));
+        insert_iterator = insert(iterator, (*(list.cbegin() + i)).get());
     }
 
     return insert_iterator;
@@ -282,7 +282,7 @@ list_iterator<T> list<T>::push_back(const list<T> &list)
 {
     for (auto current = list.cbegin(); current != list.cend(); current++)
     {
-        this->push_back(*current);
+        this->push_back((*current).get());
     }
 
     list_iterator<T> iterator(this->tail);
@@ -538,7 +538,7 @@ std::ostream &operator << (std::ostream &os, const list<T_> &list)
 {
     for (auto iterator = list.cbegin(); iterator != list.cend(); iterator++)
     {
-        os << *iterator << " ";
+        os << (*iterator).get() << " ";
     }
 
     return os;

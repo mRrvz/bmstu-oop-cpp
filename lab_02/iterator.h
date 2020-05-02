@@ -17,8 +17,12 @@ public:
     virtual void next();
     virtual bool is_invalid() const;
 
-    std::shared_ptr<list_node<T>> operator ->(); // ?
-    T &operator *() const;
+    list_node<T> *operator ->();
+    const list_node<T> *operator ->() const;
+
+    const list_node<T> &operator *() const;
+    list_node<T> &operator *();
+
     operator bool() const;
 
     list_iterator<T> &operator += (const int &size);

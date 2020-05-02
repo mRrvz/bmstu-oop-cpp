@@ -32,16 +32,16 @@ bool const_list_iterator<T>::is_invalid(void) const
 }
 
 template <typename T>
-const std::shared_ptr<list_node<T>> const_list_iterator<T>::operator ->() const
+const list_node<T> *const_list_iterator<T>::operator ->() const
 {
-    return this->ptr.lock();
+    return this->ptr.lock().get();
 }
 
 
 template <typename T>
-const T &const_list_iterator<T>::operator *() const
+const list_node<T> &const_list_iterator<T>::operator *() const
 {
-    return this->ptr.lock()->get();
+    return *this->ptr.lock().get();
 }
 
 template <typename T>
