@@ -49,7 +49,7 @@ public:
     T pop_back();
     T remove(const list_iterator<T> &iterator);
 
-    void reverse(void);
+    void reverse();
 
     list<T> &merge(const list<T> &list);
     list<T> &merge(const T &data);
@@ -63,11 +63,11 @@ public:
     bool operator == (const list<T> &list) const;
     bool operator != (const list<T> &list) const;
 
-    list_iterator<T> begin(void);
-    const_list_iterator<T> cbegin(void) const;
+    list_iterator<T> begin();
+    const_list_iterator<T> cbegin() const;
 
-    list_iterator<T> end(void);
-    const_list_iterator<T> cend(void) const;
+    list_iterator<T> end();
+    const_list_iterator<T> cend() const;
 
 protected:
     std::shared_ptr<list_node<T>> get_head();
