@@ -45,8 +45,8 @@ public:
     list_iterator<T> push_back(const T &data);
     list_iterator<T> push_back(const list<T> &list);
 
-    T pop_front(void);
-    T pop_back(void);
+    T pop_front();
+    T pop_back();
     T remove(const list_iterator<T> &iterator);
 
     void reverse(void);
@@ -70,8 +70,8 @@ public:
     const_list_iterator<T> cend(void) const;
 
 protected:
-    std::shared_ptr<list_node<T>> get_head(void);
-    std::shared_ptr<list_node<T>> get_tail(void);
+    std::shared_ptr<list_node<T>> get_head();
+    std::shared_ptr<list_node<T>> get_tail();
     list_iterator<T> push_back(const std::shared_ptr<list_node<T>> &node);
     list_iterator<T> push_front(const std::shared_ptr<list_node<T>> &node);
 
