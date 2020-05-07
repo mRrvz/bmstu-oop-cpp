@@ -26,8 +26,7 @@ public:
     list(T *const array, const size_t &size);
     list(std::initializer_list<T> nodes);
 
-    template <typename T_>
-    list(const T_ &begin, const T_ &end);
+    list(const std::iterator<std::output_iterator_tag, T> &begin, const std::iterator<std::output_iterator_tag, T> &end);
 
     ~list() = default;
 

@@ -78,8 +78,7 @@ list<T>::list(std::initializer_list<T> nodes)
 
 
 template <typename T>
-template <typename T_>
-list<T>::list(const T_ &begin, const T_ &end)
+list<T>::list(const std::iterator<std::output_iterator_tag, T> &begin, const std::iterator<std::output_iterator_tag, T> &end)
 {
     if (begin.is_invalid() || end.is_invalid())
     {
@@ -93,7 +92,7 @@ list<T>::list(const T_ &begin, const T_ &end)
 
     for (auto current = begin; current != end + 1; current++)
     {
-        this->push_back((*current).get());
+        this->push_back((*current));
     }
 }
 
