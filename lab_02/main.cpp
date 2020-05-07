@@ -9,7 +9,7 @@ void print_list(list<int> &list)
 
     for (auto node: list)
     {
-        std::cout << node.get();
+        std::cout << node.get() << "\n";
     }
 }
 
