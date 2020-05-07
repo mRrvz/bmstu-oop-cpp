@@ -6,11 +6,6 @@
 void print_list(list<int> &list)
 {
     std::cout << list;
-
-    for (auto node: list)
-    {
-        std::cout << node.get() << "\n";
-    }
 }
 
 int main(void)
@@ -40,7 +35,11 @@ int main(void)
     std::cout << "\nConstructor 6 test: ";
     auto fst = list3.begin();
     auto end = list3.begin() + 4;
-    list<int> list6(fst, end);
+    std::vector<int> vec228 = { 1, 2, 3, 4 };
+    auto fs1 = vec228.begin() + 2;
+
+    //list<int> list6(fst, end); НИХУЯ НЕ РАБОТАЕТ
+    list<int> list6 = { 7, 7, 7 };
     print_list(list6);
 
     // Тест виртуальных методов
