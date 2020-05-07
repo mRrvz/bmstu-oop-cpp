@@ -26,9 +26,12 @@ list<T>::list(list<T> &list)
 
     for (auto node: list)
     {
-        std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
-        if (!temp_node)
+        std::shared_ptr<list_node<T>> temp_node = nullptr;
+
+        try
         {
+            temp_node = std::shared_ptr<list_node<T>>(new list_node<T>);
+        } catch (std::bad_alloc &error) {
             auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
             throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
         }
@@ -39,7 +42,7 @@ list<T>::list(list<T> &list)
 }
 
 template <typename T>
-list<T>::list(T *const array, const size_t &size)
+list<T>::list(T *const array, const int &size)
 {
     if (!array)
     {
@@ -115,9 +118,12 @@ void list<T>::clear(void)
 template <typename T>
 list_iterator<T> list<T>::push_front(const T &data)
 {
-    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
-    if (!temp_node)
+    std::shared_ptr<list_node<T>> temp_node = nullptr;
+
+    try
     {
+        temp_node = std::shared_ptr<list_node<T>>(new list_node<T>);
+    } catch (std::bad_alloc &error) {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
@@ -171,9 +177,12 @@ list_iterator<T> list<T>::insert(const list_iterator<T> &iterator, const T &data
         throw iterator_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
 
-    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
-    if (!temp_node)
+    std::shared_ptr<list_node<T>> temp_node = nullptr;
+
+    try
     {
+        temp_node = std::shared_ptr<list_node<T>>(new list_node<T>);
+    } catch (std::bad_alloc &error) {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
@@ -229,9 +238,12 @@ list_iterator<T> list<T>::insert(const const_list_iterator<T> &iterator, const T
         throw iterator_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
 
-    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
-    if (!temp_node)
+    std::shared_ptr<list_node<T>> temp_node = nullptr;
+
+    try
     {
+        temp_node = std::shared_ptr<list_node<T>>(new list_node<T>);
+    } catch (std::bad_alloc &error) {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
@@ -292,9 +304,12 @@ list_iterator<T> list<T>::push_back(const list<T> &list)
 template <typename T>
 list_iterator<T> list<T>::push_back(const T &data)
 {
-    std::shared_ptr<list_node<T>> node(new list_node<T>);
-    if (!node)
+    std::shared_ptr<list_node<T>> node = nullptr;
+
+    try
     {
+        node = std::shared_ptr<list_node<T>>(new list_node<T>);
+    } catch (std::bad_alloc &error) {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
@@ -312,9 +327,12 @@ list_iterator<T> list<T>::push_back(const std::shared_ptr<list_node<T>> &node)
         throw pointer_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }
 
-    std::shared_ptr<list_node<T>> temp_node(new list_node<T>);
-    if (!temp_node)
+    std::shared_ptr<list_node<T>> temp_node = nullptr;
+
+    try
     {
+        temp_node = std::shared_ptr<list_node<T>>(new list_node<T>);
+    } catch (std::bad_alloc &error) {
         auto timenow = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
         throw memory_error(ctime(&timenow), __FILE__, typeid(list).name(), __FUNCTION__);
     }

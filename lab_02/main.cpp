@@ -6,6 +6,11 @@
 void print_list(list<int> &list)
 {
     std::cout << list;
+
+    for (auto node: list)
+    {
+        std::cout << node.get();
+    }
 }
 
 int main(void)
@@ -45,6 +50,20 @@ int main(void)
     std::cout << "\nAfter clear method: ";
     list6.clear();
     std::cout << "Is empty (list6): " << list6.is_empty();
+
+    try
+    {
+        list6.pop_back();
+    } catch (empty_list &error) {
+        std::cout << error.what();
+    }
+
+    try
+    {
+        list<int> list20(arr, -1);
+    } catch (size_error &error) {
+        std::cout << error.what();
+    }
 
     // Тест push_front методов
     std::cout << "\nPush front by value: ";

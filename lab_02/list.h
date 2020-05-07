@@ -23,7 +23,7 @@ public:
     list(list<T> &&list);
     list<T> &operator = (const list<T> &&list);
 
-    list(T *const array, const size_t &size);
+    list(T *const array, const int &size);
     list(std::initializer_list<T> nodes);
 
     template <typename T_>
