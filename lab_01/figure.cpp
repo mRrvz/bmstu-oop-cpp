@@ -42,11 +42,7 @@ err_t load_figure(figure_t &figure, fname_t name)
     error_code = load_temp_figure(temp_figure, f);
     fclose(f);
 
-    if (error_code)
-    {
-        free_figure(temp_figure);
-    }
-    else
+    if (!error_code)
     {
         free_figure(figure);
         figure = temp_figure;
