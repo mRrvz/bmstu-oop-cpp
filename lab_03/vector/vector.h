@@ -7,8 +7,8 @@
 class base_vector
 {
 public:
-    virtual size_t get_size() = 0;
-    virtual bool   is_empty() = 0;
+    virtual size_t get_size() const = 0;
+    virtual bool   is_empty() const = 0;
     virtual ~base_vector() = default;
 
 protected:
@@ -28,10 +28,10 @@ public:
 
     virtual ~vector() = default;
 
-    virtual size_t get_size();
-    virtual bool   is_empty();
+    virtual size_t get_size() const;
+    virtual bool   is_empty() const;
 
-    T &at(size_t index);
+    T &at(size_t index) const;
 
     vector<T> &push_back(const T &elem);
     vector<T> &operator += (const T &elem);

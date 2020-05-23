@@ -26,8 +26,15 @@ public:
 
     //virtual void operation() const { };
 
+    std::unique_ptr<model> clone();
+
+    //virtual bool is_visible() override;
+
     const vector<point> &get_points() const;
+    size_t points_count() const;
+
     const vector<link>  &get_links() const;
+    size_t links_count() const;
 
     void add_point(const point &point);
     void add_link (const link &link);
@@ -39,7 +46,6 @@ public:
 private:
     vector<point> points;
     vector<link> links;
-
 };
 
 #endif

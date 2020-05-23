@@ -18,11 +18,12 @@ public:
 
     //virtual void operation() const = 0;
 
-    virtual bool add(const std::shared_ptr<component> component) { return false; };
-    virtual bool remove(const iterator<component> &iterator) { return false; };
-    virtual iterator<component> begin() {};
-    virtual iterator<component> end()   {};
+    virtual bool add(const std::shared_ptr<component> &component) { return false; };
+    virtual bool remove(const iterator<std::shared_ptr<component>> &iterator) { return false; };
+    virtual iterator<std::shared_ptr<component>>  begin() {};
+    virtual iterator<std::shared_ptr<component>>  end()   {} ;
     virtual bool is_composite() const { return false; };
+    //virtual bool is_visible() = 0;
 };
 
 #endif // OBJECT_H

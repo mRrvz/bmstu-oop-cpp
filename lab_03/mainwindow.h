@@ -1,7 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QDebug>
 #include <QMainWindow>
+
+#include "facade/facade.h"
+#include "commands/command.h"
+#include "ui_mainwindow.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,6 +21,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+protected:
+
+    friend facade;
+
+    const int win_x = 989;
+    const int win_y = 569;
+
+    void setup_scene();
+    void init_facade();
+
 private slots:
     void on_move_button_clicked();
 
@@ -26,5 +42,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *_scene;
+    std::shared_ptr<facade> _facade;
 };
 #endif

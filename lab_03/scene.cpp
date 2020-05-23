@@ -2,57 +2,70 @@
 
 scene::scene()
 {
-
+    this->cams = std::shared_ptr<composite>(new composite);
+    this->models = std::shared_ptr<composite>(new composite);
 }
 
-void scene::load_file(QString &filename)
+void scene::add_model(std::shared_ptr<component> model)
 {
-
-
-}
-
-void scene::draw()
-{
-
-}
-
-
-void scene::add_model(const std::shared_ptr<component> &model)
-{
+    this->models->add(model);
     //this->objects.add(model);
 }
 
-void scene::remove_model(const size_t &index)
+void scene::remove_model(const iterator<std::shared_ptr<component>> &iterator)
 {
+    this->models->remove(iterator);
     //this->objects.remove(index);
 }
 
 void scene::add_camera(const std::shared_ptr<component> &camera)
 {
-    // ?
+    this->cams->add(camera);
 }
 
-void scene::remove_camera(const size_t &index)
+void scene::remove_camera(const iterator<std::shared_ptr<component>> &iterator)
+{
+    this->cams->remove(iterator);
+}
+
+/*
+std::shared_ptr<component> scene::get_model(const iterator<std::shared_ptr<component>> &iterator) const
+{
+    this->models.get(index);
+}
+
+std::shared_ptr<component> scene::get_camera(const iterator<component> &iterator) const
 {
 
 }
+*/
 
-std::shared_ptr<component> scene::get_model(const size_t &index)
+iterator<std::shared_ptr<component>> scene::models_begin() const
 {
-
+    return this->models->begin();
 }
 
-std::shared_ptr<component> scene::get_camera(const size_t &index)
+iterator<std::shared_ptr<component>> scene::models_end() const
 {
-
+    return this->models->end();
 }
 
-void scene::set_scene(QGraphicsScene *scene)
+iterator<std::shared_ptr<component>> scene::cams_begin() const
 {
-    this->_scene = scene;
+    return this->cams->begin();
 }
 
-QGraphicsScene *scene::get_scene()
+iterator<std::shared_ptr<component>> scene::cams_end() const
 {
-    return _scene;
+    return this->cams->end();
+}
+
+size_t scene::models_count() const
+{
+    return this->models->size();
+}
+
+size_t scene::cams_count() const
+{
+    return this->cams->size();
 }

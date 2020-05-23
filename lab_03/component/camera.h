@@ -11,6 +11,8 @@ public:
 
     //virtual void operation() const { };
 
+    //virtual bool is_visible() override;
+
     void move (double &dx, double &dy, double& dz);
     void scale(double &kx, double &ky, double &kz);
     void turn (double &ox, double &oy, double &oz);

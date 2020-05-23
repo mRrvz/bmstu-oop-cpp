@@ -3,33 +3,32 @@
 
 #include "ui_mainwindow.h"
 #include "component/composite.h"
+#include "component/camera.h"
 
 class scene
 {
 public:
     scene();
+    ~scene() = default;
 
-    void load_file(QString &filename);
-    void draw();
-
-    void add_model(const std::shared_ptr<component> &model);
-    void remove_model(const size_t &index);
+    void add_model(std::shared_ptr<component> model);
+    void remove_model(const iterator<std::shared_ptr<component>> &iterator);
 
     void add_camera(const std::shared_ptr<component> &camera);
-    void remove_camera(const size_t &index);
+    void remove_camera(const iterator<std::shared_ptr<component>> &iterator);
 
-    std::shared_ptr<component> get_model(const size_t &index);
-    std::shared_ptr<component> get_camera(const size_t &index);
+    iterator<std::shared_ptr<component>> models_begin() const;
+    iterator<std::shared_ptr<component>> models_end() const;
 
-    void set_scene(QGraphicsScene *_scene);
-    QGraphicsScene *get_scene();
-    //void next_camera();
+    iterator<std::shared_ptr<component>> cams_begin() const;
+    iterator<std::shared_ptr<component>> cams_end() const;
 
+    size_t models_count() const;
+    size_t cams_count() const;
 
 protected:
-    QGraphicsScene *_scene;
-    composite objects;
-    // current camera?
+    std::shared_ptr<composite> models;
+    std::shared_ptr<composite> cams;
 };
 
-#endif // SCENE_H
+#endif

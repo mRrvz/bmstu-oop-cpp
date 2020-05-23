@@ -16,11 +16,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    builder.cpp \
     commands/command.cpp \
-    commands/conversion_command.cpp \
     component/camera.cpp \
-    handler.cpp \
+    drawer.cpp \
+    errors/base_error.cpp \
+    facade/facade.cpp \
+    load/builder.cpp \
+    load/loader.cpp \
     main.cpp \
     mainwindow.cpp \
     component/component.cpp \
@@ -28,20 +30,30 @@ SOURCES += \
     component/link.cpp \
     component/model.cpp \
     component/point.cpp \
+    managers/draw_manager.cpp \
+    managers/load_manager.cpp \
+    managers/scene_manager.cpp \
+    mediator/mediator.cpp \
     scene.cpp
 
 HEADERS += \
-    builder.h \
     commands/command.h \
-    commands/conversion_command.h \
     component/camera.h \
-    handler.h \
+    drawer.h \
+    errors/base_error.h \
+    facade/facade.h \
+    load/builder.h \
+    load/loader.h \
     mainwindow.h \
     component/component.h \
     component/composite.h \
     component/link.h \
     component/model.h \
     component/point.h \
+    managers/draw_manager.h \
+    managers/load_manager.h \
+    managers/scene_manager.h \
+    mediator/mediator.h \
     scene.h \
     vector/vector.h \
     vector/vector.hpp \
