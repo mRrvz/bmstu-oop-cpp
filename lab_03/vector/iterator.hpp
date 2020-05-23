@@ -2,6 +2,7 @@
 #define ITERATOR_HPP
 
 #include "iterator.h"
+#include <QDebug>
 
 template <typename T>
 iterator<T>::iterator(const iterator<T> &iterator)
@@ -12,7 +13,7 @@ iterator<T>::iterator(const iterator<T> &iterator)
 }
 
 template <typename T>
-iterator<T>::iterator(vector<T> &vector)
+iterator<T>::iterator(const vector<T> &vector)
 {
     this->current_index = 0;
     this->vector_size = vector.get_size();
@@ -22,13 +23,14 @@ iterator<T>::iterator(vector<T> &vector)
 template <typename T>
 T &iterator<T>::operator*()
 {
+    //qDebug() << *get_current() << "CURRRRRRRRRRRRENT";
     return *get_current();
 }
 
 template <typename T>
 const T &iterator<T>::operator*() const
 {
-    return *get_current();
+    return get_current();
 }
 
 template <typename T>

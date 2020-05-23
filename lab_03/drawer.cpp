@@ -1,11 +1,17 @@
 #include "drawer.h"
 
-drawer::drawer(const drawer &_drawer)
+qt_drawer::qt_drawer(const qt_drawer &_drawer)
 {
     this->scene = _drawer.scene;
 }
 
-void drawer::draw_line(const point &point1, const point &point2)
+void qt_drawer::clear_scene()
 {
-    this->scene->addLine(point1.get_x(), point1.get_y(), point2.get_x(), point2.get_y());
+    scene->clear();
+}
+
+void qt_drawer::draw_line(const point &point1, const point &point2)
+{
+    this->scene->addLine(point1.get_x() + scene->width() / 2, point1.get_y() + scene->height() / 2, point2.get_x() + scene->width() / 2 , \
+                         point2.get_y() + scene->height() / 2);
 }

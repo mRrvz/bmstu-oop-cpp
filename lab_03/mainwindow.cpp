@@ -7,8 +7,8 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    _facade(nullptr),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    _facade(nullptr)
 {
     //facade _facade();
     //this->facade = _facade;
@@ -25,32 +25,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_move_button_clicked()
 {
-    move_model command(10, 10, 10, 0);
-    command.execute(_facade);
-
-    //draw_scene draw_obj;
-    //draw_obj.execute();
-
+    move_model move_command(10, 10, 10, 1);
+    move_command.execute(_facade);
+    update_scene();
 }
 
 void MainWindow::on_scale_button_clicked()
 {
-    scale_model command(3, 3, 3, 0);
-    command.execute(_facade);
-
+    scale_model scale_command(2, 2, 2, 1);
+    scale_command.execute(_facade);
+    update_scene();
 }
 
 void MainWindow::on_turn_button_clicked()
 {
-    turn_model command(3, 3, 3, 0);
-    command.execute(_facade);
+    turn_model turn_command(3, 3, 3, 1);
+    turn_command.execute(_facade);
+    update_scene();
 }
 
 void MainWindow::on_load_button_clicked()
 {
-    load_model command("/home/alexey/reps/oop/lab_03/data/model.csv");
-    command.execute(_facade);
-
+    load_model load_command("/home/alexey/reps/oop/lab_03/data/model.csv");
+    load_command.execute(_facade);
+    update_scene();
 }
 
 void MainWindow::setup_scene()
@@ -61,12 +59,10 @@ void MainWindow::setup_scene()
     this->_scene->setSceneRect(0, 0, win_x, win_y);
 }
 
-void MainWindow::init_facade()
+void MainWindow::update_scene()
 {
-    /*
-    scene _scene();
-    load_manager load();
-    draw_manager draw();
-    */
-
+    std::shared_ptr<qt_drawer> drawer(new qt_drawer(this->_scene));
+    draw_scene draw_command(drawer);
+    draw_command.execute(_facade);
 }
+

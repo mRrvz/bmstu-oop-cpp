@@ -51,3 +51,19 @@ size_t composite::size() const
 {
     return this->components.get_size();
 }
+
+void composite::draw(draw_manager &manager) const
+{
+    for (auto elem: components)
+    {
+        elem->draw(manager);
+    }
+}
+
+void composite::reform(const point &move, const point &scale, const point &turn)
+{
+    for (auto elem: components)
+    {
+        elem->reform(move, scale, turn);
+    }
+}

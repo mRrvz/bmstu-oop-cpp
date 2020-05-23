@@ -23,7 +23,11 @@ public:
 
     virtual void execute(std::shared_ptr<facade> &facade) override
     {
-        qDebug() << "move command\n" ;
+        point move(dx, dy, dz);
+        point scale(1, 1, 1);
+        point turn(0, 0, 0);
+
+        facade->reform_model(model_numb, move, scale, turn);
     }
 
 private:
@@ -43,7 +47,11 @@ public:
 
     virtual void execute(std::shared_ptr<facade> &facade) override
     {
-        qDebug() << "scale command\n" ;
+        point move(0, 0, 0);
+        point scale(kx, ky, kz);
+        point turn(0, 0, 0);
+
+        facade->reform_model(model_numb, move, scale, turn);
     }
 
 private:
@@ -63,54 +71,16 @@ public:
 
     virtual void execute(std::shared_ptr<facade> &facade) override
     {
-        qDebug() << "turn command\n";
+        point move(0, 0, 0);
+        point scale(1, 1, 1);
+        point turn(ox, oy, oz);
+
+        facade->reform_model(model_numb, move, scale, turn);
     }
 
 private:
     double ox;
     double oy;
-    double oz;
-
-    size_t model_numb;
-};
-
-class turn_model_ox : public base_command
-{
-public:
-    turn_model_ox(const double &ox, const size_t &mnumb) : ox(ox), model_numb(mnumb) {};
-    ~turn_model_ox() = default;
-
-    virtual void execute(std::shared_ptr<facade> &facade) override;
-
-private:
-    double ox;
-
-    size_t model_numb;
-};
-
-class turn_model_oy : public base_command
-{
-public:
-    turn_model_oy(const double &oy, const size_t &mnumb) : oy(oy), model_numb(mnumb) {};
-    ~turn_model_oy() = default;
-
-    virtual void execute(std::shared_ptr<facade> &facade) override;
-
-private:
-    double oy;
-
-    size_t model_numb;
-};
-
-class turn_model_oz : public base_command
-{
-public:
-    turn_model_oz(const double &oz, const size_t &mnumb) : oz(oz), model_numb(mnumb) {};
-    ~turn_model_oz() = default;
-
-    virtual void execute(std::shared_ptr<facade> &facade) override;
-
-private:
     double oz;
 
     size_t model_numb;
@@ -124,14 +94,7 @@ public:
 
     virtual void execute(std::shared_ptr<facade> &facade) override
     {
-        if (facade == nullptr)
-        {
-            qDebug() << "nullptr";
-        }
-
         facade->load_model(this->fname);
-        //facade.load.load_model();
-        qDebug() << "load command\n";
     }
 
 private:
@@ -165,13 +128,13 @@ private:
 class add_camera : public base_command
 {
 public:
-    add_camera(const camera &camera) : camera_obj(camera) {};
+    add_camera() = default;
     ~add_camera() = default;
 
-    virtual void execute(std::shared_ptr<facade> &facade) override;
-
-private:
-    camera camera_obj;
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        facade->add_camera();
+    }
 };
 
 class remove_camera : public base_command
@@ -189,13 +152,39 @@ private:
 class draw_scene : public base_command
 {
 public:
-    draw_scene();
+    draw_scene(std::shared_ptr<base_drawer> drawer) : _drawer(drawer) {};
+    draw_scene() = default;
     ~draw_scene() = default;
 
-    virtual void execute(std::shared_ptr<facade> &facade) override;
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        facade->draw_scene(_drawer);
+    }
 
 private:
+    std::shared_ptr<base_drawer> _drawer;
+};
 
+class reform_model : public base_command
+{
+public:
+
+    reform_model() = default;
+    reform_model(const size_t &numb, const point &move, const point &scale, const point &turn) :
+        model_numb(numb), move(move), scale(scale), turn(turn) {};
+    ~reform_model() = default;
+
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        facade->reform_model(model_numb, move, scale, turn);
+    }
+
+private:
+    size_t model_numb;
+
+    point move;
+    point scale;
+    point turn;
 };
 
 #endif

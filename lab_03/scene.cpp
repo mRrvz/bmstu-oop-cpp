@@ -69,3 +69,14 @@ size_t scene::cams_count() const
 {
     return this->cams->size();
 }
+
+std::shared_ptr<composite> scene::get_models() const
+{
+    return models;
+}
+
+std::shared_ptr<composite> scene::get_cams() const
+{
+    return cams;
+}
+

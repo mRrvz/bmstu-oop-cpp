@@ -9,7 +9,7 @@ template <typename T>
 vector<T>::vector()
 {
     this->size = 0;
-    this->allocate_new(10);
+    this->allocate_new(100);
 }
 
 template <typename T>
@@ -48,8 +48,9 @@ bool vector<T>::is_empty() const
 }
 
 template <typename T>
-T &vector<T>::at(size_t index) const
+T vector<T>::at(size_t index) const
 {
+    //qDebug() << "INDEX: " << index;
     if (index >= this->size)
     {
         //todo
@@ -65,8 +66,6 @@ vector<T> &vector<T>::push_back(const T &elem)
 
     if (this->size >= memory_allocated)
     {
-        //qDebug() << "xm?====\n";
-        //qDebug() << memory_allocated << size;
         allocate_new(size * 2);
     }
 
@@ -106,6 +105,20 @@ template <typename T>
 iterator<T> vector<T>::end()
 {
     iterator<T> iterator(*this);
+    return iterator + this->size;
+}
+
+template <typename T>
+const iterator<T> vector<T>::begin() const
+{
+    const iterator<T> iterator(*this);
+    return iterator;
+}
+
+template <typename T>
+const iterator<T> vector<T>::end() const
+{
+    const iterator<T> iterator(*this);
     return iterator + this->size;
 }
 

@@ -32,8 +32,8 @@ SOURCES += \
     component/point.cpp \
     managers/draw_manager.cpp \
     managers/load_manager.cpp \
+    managers/reform_manager.cpp \
     managers/scene_manager.cpp \
-    mediator/mediator.cpp \
     scene.cpp
 
 HEADERS += \
@@ -52,8 +52,8 @@ HEADERS += \
     component/point.h \
     managers/draw_manager.h \
     managers/load_manager.h \
+    managers/reform_manager.h \
     managers/scene_manager.h \
-    mediator/mediator.h \
     scene.h \
     vector/vector.h \
     vector/vector.hpp \

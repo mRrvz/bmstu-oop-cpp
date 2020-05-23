@@ -3,19 +3,32 @@
 
 #include "component.h"
 
-class camera : public component
+class camera : public camera_obj
 {
 public:
-    camera();
+    camera() = default;
+    camera(const double &x_pos, const double &y_pos) : x_pos(x_pos), y_pos(y_pos) {};
     ~camera() = default;
 
-    //virtual void operation() const { };
+    double get_x_pos();
+    double get_y_pos();
 
-    //virtual bool is_visible() override;
+    void move_x(const double &shift); // to virtual
+    void move_y(const double &shift); // to virtual
 
-    void move (double &dx, double &dy, double& dz);
-    void scale(double &kx, double &ky, double &kz);
-    void turn (double &ox, double &oy, double &oz);
+    virtual void draw(draw_manager &manager) const override
+    {
+
+    }
+
+    virtual void reform(const point &move, const point &scale, const point &turn) override
+    {
+
+    }
+
+private:
+    double x_pos;
+    double y_pos;
 };
 
 #endif

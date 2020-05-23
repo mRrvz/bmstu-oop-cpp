@@ -17,7 +17,6 @@ std::shared_ptr<model> model_loader::load_model(base_builder &builder)
     size_t links_count;
     this->file >> links_count;
 
-
     for (size_t i = 0; i < links_count; i++)
     {
         size_t pt1, pt2;
@@ -26,13 +25,12 @@ std::shared_ptr<model> model_loader::load_model(base_builder &builder)
     }
 
     return builder.get();
-    //fclose();
 }
 
 void model_loader::fopen(std::string &fname)
 {
     this->file.open(fname);
-    qDebug() << "correct open";
+
     if (!this->file)
     {
         qDebug() << "fail fileopen";

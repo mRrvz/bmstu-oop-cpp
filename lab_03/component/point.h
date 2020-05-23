@@ -25,9 +25,9 @@ public:
     void set_y(double const &y);
     void set_z(double const &z);
 
-    void move (const double &dx, const double &dy, const double &dz);
-    void scale(const double &kx, const double &ky, const double &kz);
-    void turn (const double &ox, const double &oy, const double &oz);
+    void move (const double dx, const double dy, const double dz);
+    void scale(const double kx, const double ky, const double kz);
+    void turn (const double ox, const double oy, const double oz);
 
     void turn_x(const double &ox);
     void turn_y(const double &oy);

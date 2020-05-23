@@ -29,7 +29,10 @@ protected:
     const int win_y = 569;
 
     void setup_scene();
-    void init_facade();
+
+    void update_scene();
+
+    void clear_scene();
 
 private slots:
     void on_move_button_clicked();

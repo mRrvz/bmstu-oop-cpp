@@ -10,14 +10,18 @@ public:
     base_drawer() = default;
     virtual ~base_drawer() = default;
     virtual void draw_line(const point &point1, const point &point2) = 0;
+    virtual void clear_scene() = 0;
 };
 
-class drawer : public base_drawer
+class qt_drawer : public base_drawer
 {
 public:
-    drawer(QGraphicsScene *_scene) : scene(_scene) {};
-    drawer(const drawer &_drawer);
+    qt_drawer() : scene(nullptr) {};
+    qt_drawer(QGraphicsScene *_scene) : scene(_scene) {};
+    qt_drawer(const qt_drawer &_drawer);
+
     virtual void draw_line(const point &point1, const point &point2) override;
+    virtual void clear_scene() override;
 
 private:
     QGraphicsScene *scene;

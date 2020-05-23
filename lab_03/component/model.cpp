@@ -1,5 +1,7 @@
 #include "model.h"
 
+#include "../managers/draw_manager.h"
+
 model::model(const model &model)
 {
     this->points = model.points;
@@ -65,26 +67,38 @@ void model::add_link(const link &link)
     this->links.push_back(link);
 }
 
-void model::move(double &dx, double &dy, double& dz)
+void model::move(const double dx, const double dy, const double dz)
 {
-    for (auto point: points)
+    for (auto &point: points)
     {
         point.move(dx, dy, dz);
     }
 }
 
-void model::scale(double &kx, double &ky, double &kz)
+void model::scale(const double kx, const double ky, const double kz)
 {
-    for (auto point: points)
+    for (auto &point: points)
     {
         point.scale(kx, ky, kz);
     }
 }
 
-void model::turn(double &ox, double &oy, double &oz)
+void model::turn(const double ox, const double oy, const double oz)
 {
-    for (auto point: points)
+    for (auto &point: points)
     {
         point.turn(ox, oy, oz);
     }
+}
+
+void model::reform(const point &move_coeff, const point &scale_coeff, const point &turn_coeff)
+{
+    move(move_coeff.get_x(), move_coeff.get_y(), move_coeff.get_z());
+    scale(scale_coeff.get_x(), scale_coeff.get_y(), scale_coeff.get_z());
+    turn(turn_coeff.get_x(), turn_coeff.get_y(), turn_coeff.get_z());
+}
+
+void model::draw(draw_manager &manager) const
+{
+    manager.draw_model(*this);
 }

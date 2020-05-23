@@ -1,6 +1,7 @@
 #include "point.h"
 
 #define PI 3.1415
+#include <QDebug>
 
 point::point()
 {
@@ -80,21 +81,21 @@ void point::set_z(double const &z)
     this->z = z;
 }
 
-void point::move(const double &dx, const double &dy, const double &dz)
+void point::move(const double dx, const double dy, const double dz)
 {
     this->x += dx;
     this->y += dy;
     this->z += dz;
 }
 
-void point::scale(const double &kx, const double &ky, const double &kz)
+void point::scale(const double kx, const double ky, const double kz)
 {
     this->x *= kx;
     this->y *= ky;
     this->z *= kz;
 }
 
-void point::turn(const double &ox, const double &oy, const double &oz)
+void point::turn(const double ox, const double oy, const double oz)
 {
     this->turn_x(ox);
     this->turn_y(oy);

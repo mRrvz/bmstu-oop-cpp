@@ -31,7 +31,7 @@ public:
     virtual size_t get_size() const;
     virtual bool   is_empty() const;
 
-    T &at(size_t index) const;
+    T at(size_t index) const;
 
     vector<T> &push_back(const T &elem);
     vector<T> &operator += (const T &elem);
@@ -40,10 +40,10 @@ public:
     void remove(size_t index);
 
     iterator<T> begin();
-    //const_iterator<T> cbegin() const;
+    const iterator<T> begin() const;
 
     iterator<T> end();
-    //const_iterator<T> cend() const;
+    const iterator<T> end() const;
 
 protected:
     void allocate_new(size_t size);

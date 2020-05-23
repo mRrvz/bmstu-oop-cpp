@@ -23,6 +23,11 @@ public:
     iterator<std::shared_ptr<component>> cams_begin() const;
     iterator<std::shared_ptr<component>> cams_end() const;
 
+    std::shared_ptr<composite> get_models() const;
+    std::shared_ptr<composite> get_cams() const;
+
+    //std::shared_ptr<camera> get_cam(iterator<std::shared_ptr<component>> iterator) const
+
     size_t models_count() const;
     size_t cams_count() const;
 

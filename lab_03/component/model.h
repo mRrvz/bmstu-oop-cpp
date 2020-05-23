@@ -24,11 +24,7 @@ public:
 
     ~model() = default;
 
-    //virtual void operation() const { };
-
     std::unique_ptr<model> clone();
-
-    //virtual bool is_visible() override;
 
     const vector<point> &get_points() const;
     size_t points_count() const;
@@ -39,9 +35,12 @@ public:
     void add_point(const point &point);
     void add_link (const link &link);
 
-    void move (double &dx, double &dy, double& dz);
-    void scale(double &kx, double &ky, double &kz);
-    void turn (double &ox, double &oy, double &oz);
+    void move (const double dx, const double dy, const double dz);
+    void scale(const double kx, const double ky, const double kz);
+    void turn (const double ox, const double oy, const double oz);
+
+    virtual void draw(draw_manager &manager) const override;
+    virtual void reform(const point &move, const point &scale, const point &turn) override;
 
 private:
     vector<point> points;

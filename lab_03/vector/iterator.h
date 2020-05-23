@@ -12,7 +12,7 @@ class iterator : public std::iterator<std::input_iterator_tag, T>
 {
 public:
     iterator(const iterator<T> &iterator);
-    iterator(vector<T> &vector);
+    iterator(const vector<T> &vector);
 
     T &operator*();
     const T &operator*() const;
