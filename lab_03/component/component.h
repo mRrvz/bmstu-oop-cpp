@@ -34,8 +34,8 @@ class camera_obj
     virtual bool add(const std::shared_ptr<camera_obj> &component) { return false; };
     virtual bool remove(const iterator<std::shared_ptr<camera_obj>> &iterator) { return false; };
 
-    virtual iterator<std::shared_ptr<camera_obj>>  begin() {} ;
-    virtual iterator<std::shared_ptr<camera_obj>>  end()   {} ;
+    virtual iterator<std::shared_ptr<camera_obj>>  begin() {};
+    virtual iterator<std::shared_ptr<camera_obj>>  end()   {};
 
     virtual bool is_composite() const { return false; };
 

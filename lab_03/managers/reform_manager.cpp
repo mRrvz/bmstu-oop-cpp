@@ -1,6 +1,11 @@
 #include "reform_manager.h"
 #include <QDebug>
 
+void reform_manager::reform_camera(std::shared_ptr<component> _component, const double &x_shift, const double &y_shift)
+{
+
+}
+
 void reform_manager::reform_component(std::shared_ptr<component> _component, const point &move, const point &scale, const point &turn)
 {
     _component->reform(move, scale, turn);

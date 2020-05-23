@@ -6,7 +6,6 @@
 #include "../managers/draw_manager.h"
 #include "../managers/scene_manager.h"
 #include "../managers/reform_manager.h"
-#include "../managers/camera_manager.h"
 
 class facade
 {
@@ -43,7 +42,7 @@ private:
     load_manager _load_manager;
     draw_manager _draw_manager;
     reform_manager _reform_manager;
-    camera_manager _camera_manager;
+    //camera_manager _camera_manager;
 };
 
 #endif
