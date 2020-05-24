@@ -20,18 +20,20 @@ public:
     ~facade() = default;
 
     void load_model(std::string fname); // ready
+    void add_model(const std::shared_ptr<component> &);
     void remove_model(const size_t &index);
 
-    void add_camera();
+    void add_camera(const point &cam_pos);
     void remove_camera(const size_t &index);
+    void set_camera(const size_t &camera_numb);
 
     void draw_scene(std::shared_ptr<base_drawer> _drawer); // ready
 
-    void reform_model(const size_t &model_numb, const point &move, const point &scale, const point &turn);
-    void reform_models(const point &move, const point &scale, const point &turn);
+    void reform_model(const size_t &model_numb, const point &move, const point &scale, const point &turn); // ready
+    void reform_models(const point &move, const point &scale, const point &turn); // ready
 
-    void reform_cam(const size_t &cam_numb, const double &x_shift, const double &y_shift);
-    void reform_cams(const double &x_shift, const double &y_shift);
+    void reform_cam(const size_t &cam_numb, const point &shift); // ready
+    void reform_cams(const point &shift); // ready
 
 private:
     facade() = default;

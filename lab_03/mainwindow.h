@@ -43,6 +43,8 @@ private slots:
 
     void on_load_button_clicked();
 
+    void on_add_camera_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *_scene;

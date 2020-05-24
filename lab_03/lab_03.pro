@@ -25,7 +25,6 @@ SOURCES += \
     load/loader.cpp \
     main.cpp \
     mainwindow.cpp \
-    component/component.cpp \
     component/composite.cpp \
     component/link.cpp \
     component/model.cpp \

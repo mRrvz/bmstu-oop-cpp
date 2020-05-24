@@ -17,6 +17,7 @@ public:
 class move_model : public base_command
 {
 public:
+    move_model() = delete;
     move_model(const double &dx, const double &dy, const double &dz, const size_t &mnumb) :
         dx(dx), dy(dy), dz(dz), model_numb(mnumb) {};
     ~move_model() = default;
@@ -41,6 +42,7 @@ private:
 class scale_model : public base_command
 {
 public:
+    scale_model() = delete;
     scale_model(const double &kx, const double &ky, const double &kz, const size_t &mnumb) :
         kx(kx), ky(ky), kz(kz), model_numb(mnumb) {};
     ~scale_model() = default;
@@ -65,6 +67,7 @@ private:
 class turn_model : public base_command
 {
 public:
+    turn_model() = delete;
     turn_model(const double &ox, const double &oy, const double &oz, const size_t &mnumb) :
         ox(ox), oy(oy), oz(oz), model_numb(mnumb) {};
     ~turn_model() = default;
@@ -89,6 +92,7 @@ private:
 class load_model : public base_command
 {
 public:
+    load_model() = delete;
     load_model(const std::string &fname) : fname(fname) {};
     ~load_model() = default;
 
@@ -104,22 +108,30 @@ private:
 class add_model : public base_command
 {
 public:
-    add_model(const model &model) : model_obj(model) {};
+    add_model() = delete;
+    add_model(const std::shared_ptr<component> &model) : model(model) {};
     ~add_model() = default;
 
-    virtual void execute(std::shared_ptr<facade> &facade) override;
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        facade->add_model(model);
+    }
 
 private:
-    model model_obj;
+    std::shared_ptr<component> model;
 };
 
 class remove_model : public base_command
 {
 public:
+    remove_model() = delete;
     remove_model(const size_t &model_numb) : model_numb(model_numb) {};
     ~remove_model() = default;
 
-    virtual void execute(std::shared_ptr<facade> &facade) override;
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        facade->remove_model(model_numb);
+    }
 
 private:
     size_t model_numb;
@@ -128,22 +140,33 @@ private:
 class add_camera : public base_command
 {
 public:
-    add_camera() = default;
+    add_camera() = delete;
+    add_camera(const double x, const double y, const double z) : x_pos(x), y_pos(y), z_pos(z) {};
     ~add_camera() = default;
 
     virtual void execute(std::shared_ptr<facade> &facade) override
     {
-        facade->add_camera();
+        point cam_pos(x_pos, y_pos, z_pos);
+        facade->add_camera(cam_pos);
     }
+
+private:
+    double x_pos;
+    double y_pos;
+    double z_pos;
 };
 
 class remove_camera : public base_command
 {
 public:
+    remove_camera() = delete;
     remove_camera(const size_t &camera_numb) : camera_numb(camera_numb) {};
     ~remove_camera() = default;
 
-    virtual void execute(std::shared_ptr<facade> &facade) override;
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        facade->remove_camera(camera_numb);
+    }
 
 private:
     size_t camera_numb;
@@ -152,8 +175,8 @@ private:
 class draw_scene : public base_command
 {
 public:
+    draw_scene() = delete;
     draw_scene(std::shared_ptr<base_drawer> drawer) : _drawer(drawer) {};
-    draw_scene() = default;
     ~draw_scene() = default;
 
     virtual void execute(std::shared_ptr<facade> &facade) override
@@ -168,8 +191,7 @@ private:
 class reform_model : public base_command
 {
 public:
-
-    reform_model() = default;
+    reform_model() = delete;
     reform_model(const size_t &numb, const point &move, const point &scale, const point &turn) :
         model_numb(numb), move(move), scale(scale), turn(turn) {};
     ~reform_model() = default;

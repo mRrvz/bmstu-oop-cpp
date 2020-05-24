@@ -10,9 +10,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
     _facade(nullptr)
 {
-    //facade _facade();
-    //this->facade = _facade;
-
     ui->setupUi(this);
     this->setup_scene();
     this->_facade = std::shared_ptr<facade>(facade::instance());
@@ -66,3 +63,8 @@ void MainWindow::update_scene()
     draw_command.execute(_facade);
 }
 
+void MainWindow::on_add_camera_clicked()
+{
+    add_camera camera_command(win_x / 2, win_y / 2, 0);
+    camera_command.execute(_facade);
+}

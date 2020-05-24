@@ -8,7 +8,7 @@ class draw_manager
 {
 public:
     draw_manager() = default;
-    draw_manager(draw_manager &manager) : _drawer(manager._drawer), current_cam(manager.current_cam) {};
+    draw_manager(draw_manager &manager) : _drawer(manager._drawer), cam(manager.cam) {};
     ~draw_manager() = default;
 
     void draw_model(const model &model);
@@ -16,8 +16,9 @@ public:
     void set_cam(std::shared_ptr<camera>);
 
 private:
+    point proect_point(const point &point);
     std::shared_ptr<base_drawer> _drawer;
-    std::shared_ptr<camera> current_cam;
+    std::shared_ptr<camera> cam;
 };
 
 #endif

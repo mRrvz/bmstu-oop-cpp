@@ -2,43 +2,29 @@
 
 scene::scene()
 {
-    this->cams = std::shared_ptr<composite>(new composite);
+    this->cams = std::shared_ptr<cams_composite>(new cams_composite);
     this->models = std::shared_ptr<composite>(new composite);
 }
 
 void scene::add_model(std::shared_ptr<component> model)
 {
     this->models->add(model);
-    //this->objects.add(model);
 }
 
 void scene::remove_model(const iterator<std::shared_ptr<component>> &iterator)
 {
     this->models->remove(iterator);
-    //this->objects.remove(index);
 }
 
-void scene::add_camera(const std::shared_ptr<component> &camera)
+void scene::add_camera(const std::shared_ptr<camera_obj> &camera)
 {
     this->cams->add(camera);
 }
 
-void scene::remove_camera(const iterator<std::shared_ptr<component>> &iterator)
+void scene::remove_camera(const iterator<std::shared_ptr<camera_obj>> &iterator)
 {
     this->cams->remove(iterator);
 }
-
-/*
-std::shared_ptr<component> scene::get_model(const iterator<std::shared_ptr<component>> &iterator) const
-{
-    this->models.get(index);
-}
-
-std::shared_ptr<component> scene::get_camera(const iterator<component> &iterator) const
-{
-
-}
-*/
 
 iterator<std::shared_ptr<component>> scene::models_begin() const
 {
@@ -50,12 +36,12 @@ iterator<std::shared_ptr<component>> scene::models_end() const
     return this->models->end();
 }
 
-iterator<std::shared_ptr<component>> scene::cams_begin() const
+iterator<std::shared_ptr<camera_obj>> scene::cams_begin() const
 {
     return this->cams->begin();
 }
 
-iterator<std::shared_ptr<component>> scene::cams_end() const
+iterator<std::shared_ptr<camera_obj>> scene::cams_end() const
 {
     return this->cams->end();
 }
@@ -72,11 +58,11 @@ size_t scene::cams_count() const
 
 std::shared_ptr<composite> scene::get_models() const
 {
-    return models;
+    return this->models;
 }
 
-std::shared_ptr<composite> scene::get_cams() const
+std::shared_ptr<cams_composite> scene::get_cams() const
 {
-    return cams;
+    return this->cams;
 }
 
