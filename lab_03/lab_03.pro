@@ -36,7 +36,7 @@ SOURCES += \
 
 HEADERS += \
     commands/command.h \
-    component/camera.h \
+    objects/camera.h \
     errors/base_error.h \
     errors/camera_error.h \
     errors/file_error.h \
@@ -59,7 +59,8 @@ HEADERS += \
     vector/vector.h \
     vector/vector.hpp \
     vector/iterator.h \
-    vector/iterator.hpp
+    vector/iterator.hpp \
+    visitor/visitor.h
 
 FORMS += \
     mainwindow.ui

@@ -3,9 +3,11 @@
 
 #include <memory>
 
+//#include "../visitor/visitor.h"
 #include "../vector/iterator.hpp"
 #include "point.h"
 
+class visitor;
 class draw_manager;
 
 class model_obj
@@ -23,6 +25,7 @@ public:
     virtual bool is_composite() const { return false; };
 
     virtual void draw(draw_manager &manager) const = 0;
+    virtual void accept(std::shared_ptr<visitor> visitor) = 0;
     virtual void reform(const point &move, const point &scale, const point &turn) = 0;
 };
 
@@ -41,6 +44,7 @@ public:
     virtual bool is_composite() const { return false; };
 
     virtual void reform(const point &new_pos) = 0;
+    virtual void accept(std::shared_ptr<visitor> visitor) = 0;
 
 private:
     point current_pos;

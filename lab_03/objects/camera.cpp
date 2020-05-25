@@ -1,4 +1,5 @@
 #include "camera.h"
+#include "../visitor/visitor.h"
 
 point camera::get_pos()
 {
@@ -24,4 +25,9 @@ void camera::reform(const point &new_pos)
 {
     this->move_x(new_pos.get_x());
     this->move_y(new_pos.get_y());
+}
+
+void camera::accept(std::shared_ptr<visitor> _visitor)
+{
+    _visitor->visit(*this);
 }

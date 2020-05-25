@@ -41,6 +41,7 @@ public:
 
     virtual void draw(draw_manager &manager) const override;
     virtual void reform(const point &move, const point &scale, const point &turn) override;
+    virtual void accept(std::shared_ptr<visitor> visitor) override;
 
 private:
     vector<point> points;

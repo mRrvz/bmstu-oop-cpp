@@ -1,4 +1,5 @@
 #include "composite.h"
+#include "../visitor/visitor.h"
 
 models_composite::models_composite(std::shared_ptr<model_obj> &component)
 {
@@ -106,4 +107,14 @@ void cams_composite::reform(const point &new_pos)
     {
         elem->reform(new_pos);
     }
+}
+
+void models_composite::accept(std::shared_ptr<visitor> _visitor)
+{
+   _visitor->visit(*this);
+}
+
+void cams_composite::accept(std::shared_ptr<visitor> _visitor)
+{
+    _visitor->visit(*this);
 }

@@ -11,6 +11,7 @@ public:
     ~camera() = default;
 
     virtual void reform(const point &new_pos) override;
+    virtual void accept(std::shared_ptr<visitor> visitor) override;
     point get_pos();
 
     void move_x(const double &shift);

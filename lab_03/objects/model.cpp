@@ -1,6 +1,7 @@
 #include "model.h"
 
 #include "../managers/draw_manager.h"
+#include "../visitor/visitor.h"
 
 model::model(const model &model)
 {
@@ -101,4 +102,9 @@ void model::reform(const point &move_coeff, const point &scale_coeff, const poin
 void model::draw(draw_manager &manager) const
 {
     manager.draw_model(*this);
+}
+
+void model::accept(std::shared_ptr<visitor> _visitor)
+{
+    _visitor->visit(*this);
 }

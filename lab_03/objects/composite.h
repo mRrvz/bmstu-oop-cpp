@@ -22,6 +22,7 @@ public:
     virtual bool is_composite() const override;
     virtual void draw(draw_manager &manager) const override;
     virtual void reform(const point &move, const point &scale, const point &turn) override;
+    virtual void accept(std::shared_ptr<visitor> visitor) override;
 
 private:
     vector<std::shared_ptr<model_obj>> objects;
@@ -45,6 +46,7 @@ public:
 
     virtual bool is_composite() const override;
     virtual void reform(const point &move) override;
+    virtual void accept(std::shared_ptr<visitor> visitor) override;
 
 private:
     vector<std::shared_ptr<camera_obj>> objects;
