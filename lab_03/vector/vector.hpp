@@ -26,7 +26,6 @@ vector<T>::vector(const T *array, size_t _size)
 template <typename T>
 vector<T>::vector(T elem, size_t _size)
 {
-    //this->size = _size;
     this->allocate_new(_size * 2);
 
     for (int i = 0; i < _size; i++)
@@ -50,7 +49,6 @@ bool vector<T>::is_empty() const
 template <typename T>
 T vector<T>::at(size_t index) const
 {
-    //qDebug() << "INDEX: " << index;
     if (index >= this->size)
     {
         //todo
@@ -62,18 +60,12 @@ T vector<T>::at(size_t index) const
 template <typename T>
 vector<T> &vector<T>::push_back(const T &elem)
 {
-    //qDebug() << memory_allocated;
-
     if (this->size >= memory_allocated)
     {
         allocate_new(size * 2);
     }
 
-    //qDebug() << memory_allocated << size;
-
-    //qDebug() << this->size;
     this->value[this->size++] = elem;
-    //qDebug() << this->size << this->value[this->size - 1];
 }
 
 template <typename T>
@@ -83,15 +75,16 @@ vector<T> &vector<T>::operator += (const T &elem)
 }
 
 template <typename T>
-void vector<T>::remove(iterator<T>)
+void vector<T>::remove(iterator<T> _iterator)
 {
-
+    //todo
 }
 
 template <typename T>
 void vector<T>::remove(size_t index)
 {
-
+    iterator<T> iterator(index);
+    this->remove(iterator);
 }
 
 template <typename T>
@@ -129,14 +122,10 @@ void vector<T>::allocate_new(size_t new_size)
     try {
         this->value.reset(new T[new_size]);
     } catch (std::bad_alloc &exception) {
-        //throw MemoryException(__FILE__, typeid(*this).name(),
-        //                      __LINE__, ctime(&currentTime));
-
+        //todo
     }
 
-    //qDebug() << "size in alocate new: "<< new_size << "\n";
     this->memory_allocated = new_size;
-    //qDebug() << memory_allocated << "in allocate new";
 }
 
 #endif
