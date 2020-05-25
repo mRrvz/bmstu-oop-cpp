@@ -3,8 +3,8 @@
 
 #include <string>
 #include "../facade/facade.h"
-#include "../component/model.h"
-#include "../component/camera.h"
+#include "../objects/model.h"
+#include "../objects/camera.h"
 
 class base_command
 {
@@ -109,7 +109,7 @@ class add_model : public base_command
 {
 public:
     add_model() = delete;
-    add_model(const std::shared_ptr<component> &model) : model(model) {};
+    add_model(const std::shared_ptr<model_obj> &model) : model(model) {};
     ~add_model() = default;
 
     virtual void execute(std::shared_ptr<facade> &facade) override
@@ -118,7 +118,7 @@ public:
     }
 
 private:
-    std::shared_ptr<component> model;
+    std::shared_ptr<model_obj> model;
 };
 
 class remove_model : public base_command
@@ -207,6 +207,27 @@ private:
     point move;
     point scale;
     point turn;
+};
+
+class move_camera : public base_command
+{
+public:
+    move_camera() = delete;
+    move_camera(const size_t &cam_number, const double &shift_ox, const double &shift_oy) :
+        cam_number(cam_number), shift_ox(shift_ox), shift_oy(shift_oy) {};
+    ~move_camera() = default;
+
+    virtual void execute(std::shared_ptr<facade> &facade) override
+    {
+        point shift(shift_ox, shift_oy, 0);
+        facade->reform_cam(cam_number, shift);
+    }
+
+private:
+    size_t cam_number;
+
+    double shift_ox;
+    double shift_oy;
 };
 
 #endif

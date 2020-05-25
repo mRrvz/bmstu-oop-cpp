@@ -1,8 +1,8 @@
 #ifndef SCENE_MANAGER_H
 #define SCENE_MANAGER_H
 
-#include "../component/camera.h"
-#include "../scene.h"
+#include "../objects/camera.h"
+#include "../scene/scene.h"
 
 class scene_manager
 {

@@ -1,13 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QDebug>
+#include <iostream>
 #include <QMainWindow>
+#include <QMessageBox>
 
-#include "facade/facade.h"
-#include "commands/command.h"
+#include "../facade/facade.h"
+#include "../commands/command.h"
+#include "../errors/camera_error.h"
+#include "../errors/model_error.h"
 #include "ui_mainwindow.h"
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,9 +24,6 @@ public:
     ~MainWindow();
 
 protected:
-
-    friend facade;
-
     const int win_x = 989;
     const int win_y = 569;
 
@@ -33,6 +32,10 @@ protected:
     void update_scene();
 
     void clear_scene();
+
+    void check_cam_exist();
+
+    void check_models_exist();
 
 private slots:
     void on_move_button_clicked();
@@ -44,6 +47,15 @@ private slots:
     void on_load_button_clicked();
 
     void on_add_camera_clicked();
+
+    void on_right_button_clicked();
+
+    void on_up_button_clicked();
+
+    void on_down_button_clicked();
+
+    void on_left_button_clicked();
+
 
 private:
     Ui::MainWindow *ui;

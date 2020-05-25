@@ -10,7 +10,7 @@
 #include "link.h"
 #include "point.h"
 
-class model : public component
+class model : public model_obj
 {
 public:
     model() = default;

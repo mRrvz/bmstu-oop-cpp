@@ -1,7 +1,7 @@
 #ifndef BUILDER_H
 #define BUILDER_H
 
-#include "../component/model.h"
+#include "../objects/model.h"
 
 class base_builder
 {

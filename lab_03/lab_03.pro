@@ -17,43 +17,45 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     commands/command.cpp \
-    component/camera.cpp \
-    drawer.cpp \
-    errors/base_error.cpp \
+    gui/drawer.cpp \
+    gui/mainwindow.cpp \
+    objects/camera.cpp \
     facade/facade.cpp \
     load/builder.cpp \
     load/loader.cpp \
     main.cpp \
-    mainwindow.cpp \
-    component/composite.cpp \
-    component/link.cpp \
-    component/model.cpp \
-    component/point.cpp \
+    objects/composite.cpp \
+    objects/link.cpp \
+    objects/model.cpp \
+    objects/point.cpp \
     managers/draw_manager.cpp \
     managers/load_manager.cpp \
     managers/reform_manager.cpp \
     managers/scene_manager.cpp \
-    scene.cpp
+    scene/scene.cpp
 
 HEADERS += \
     commands/command.h \
     component/camera.h \
-    drawer.h \
     errors/base_error.h \
+    errors/camera_error.h \
+    errors/file_error.h \
+    errors/model_error.h \
     facade/facade.h \
+    gui/drawer.h \
+    gui/mainwindow.h \
     load/builder.h \
     load/loader.h \
-    mainwindow.h \
-    component/component.h \
-    component/composite.h \
-    component/link.h \
-    component/model.h \
-    component/point.h \
+    objects/component.h \
+    objects/composite.h \
+    objects/link.h \
+    objects/model.h \
+    objects/point.h \
     managers/draw_manager.h \
     managers/load_manager.h \
     managers/reform_manager.h \
     managers/scene_manager.h \
-    scene.h \
+    scene/scene.h \
     vector/vector.h \
     vector/vector.hpp \
     vector/iterator.h \

@@ -8,17 +8,17 @@
 
 class draw_manager;
 
-class component
+class model_obj
 {
 public:
-    component() = default;
-    virtual ~component() = default;
+    model_obj() = default;
+    virtual ~model_obj() = default;
 
-    virtual bool add(const std::shared_ptr<component>&) { return false; };
-    virtual bool remove(const iterator<std::shared_ptr<component>>&) { return false; };
+    virtual bool add(const std::shared_ptr<model_obj>&) { return false; };
+    virtual bool remove(const iterator<std::shared_ptr<model_obj>>&) { return false; };
 
-    virtual iterator<std::shared_ptr<component>> begin() {};
-    virtual iterator<std::shared_ptr<component>> end()   {};
+    virtual iterator<std::shared_ptr<model_obj>> begin() {};
+    virtual iterator<std::shared_ptr<model_obj>> end()   {};
 
     virtual bool is_composite() const { return false; };
 

@@ -1,58 +1,58 @@
 #include "composite.h"
 
-composite::composite(std::shared_ptr<component> &component)
+models_composite::models_composite(std::shared_ptr<model_obj> &component)
 {
-    this->components.push_back(component);
+    this->objects.push_back(component);
 }
 
-composite::composite(vector<std::shared_ptr<component>> vector)
+models_composite::models_composite(vector<std::shared_ptr<model_obj>> vector)
 {
-    this->components = vector;
+    this->objects = vector;
 }
 
-bool composite::add(const std::shared_ptr<component> &component)
+bool models_composite::add(const std::shared_ptr<model_obj> &component)
 {
-    this->components.push_back(component);
+    this->objects.push_back(component);
     return true;
 }
 
-bool composite::remove(const iterator<std::shared_ptr<component>> &iterator)
+bool models_composite::remove(const iterator<std::shared_ptr<model_obj>> &iterator)
 {
-    components.remove(iterator);
+    this->objects.remove(iterator);
     return true;
 }
 
-iterator<std::shared_ptr<component>> composite::begin()
+iterator<std::shared_ptr<model_obj>> models_composite::begin()
 {
-    return components.begin();
+    return this->objects.begin();
 }
 
-iterator<std::shared_ptr<component>> composite::end()
+iterator<std::shared_ptr<model_obj>> models_composite::end()
 {
-    return components.end();
+    return this->objects.end();
 }
 
-bool composite::is_composite() const
+bool models_composite::is_composite() const
 {
     return true;
 }
 
-size_t composite::size() const
+size_t models_composite::size() const
 {
-    return this->components.get_size();
+    return this->objects.get_size();
 }
 
-void composite::draw(draw_manager &manager) const
+void models_composite::draw(draw_manager &manager) const
 {
-    for (auto elem: components)
+    for (auto elem: objects)
     {
         elem->draw(manager);
     }
 }
 
-void composite::reform(const point &move, const point &scale, const point &turn)
+void models_composite::reform(const point &move, const point &scale, const point &turn)
 {
-    for (auto elem: components)
+    for (auto elem: objects)
     {
         elem->reform(move, scale, turn);
     }

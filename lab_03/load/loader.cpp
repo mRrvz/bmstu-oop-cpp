@@ -33,10 +33,9 @@ void model_loader::fopen(std::string &fname)
 
     if (!this->file)
     {
-        qDebug() << "fail fileopen";
-        // throw
+        std::string message = "Error while open file.";
+        throw file_error(message);
     }
-
 }
 
 void model_loader::fclose()
@@ -46,6 +45,6 @@ void model_loader::fclose()
         this->file.close();
     } catch (std::ifstream::failure &error)
     {
-        qDebug() << "fail close";
+        error.what();
     }
 }

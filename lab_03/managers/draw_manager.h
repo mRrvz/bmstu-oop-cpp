@@ -1,8 +1,8 @@
 #ifndef DRAW_MANAGER_H
 #define DRAW_MANAGER_H
 
-#include "../drawer.h"
-#include "../scene.h"
+#include "../gui/drawer.h"
+#include "../scene/scene.h"
 
 class draw_manager
 {

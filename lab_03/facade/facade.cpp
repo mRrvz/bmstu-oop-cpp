@@ -1,6 +1,4 @@
 #include "facade.h"
-#include <iostream>
-#include <memory>
 
 void facade::load_model(std::string fname)
 {
@@ -8,7 +6,7 @@ void facade::load_model(std::string fname)
     this->_scene_manager.get_scene()->add_model(model);
 }
 
-void facade::add_model(const std::shared_ptr<component> &model)
+void facade::add_model(const std::shared_ptr<model_obj> &model)
 {
     this->_scene_manager.get_scene()->add_model(model);
 }
@@ -39,7 +37,7 @@ void facade::remove_camera(const size_t &index)
 void facade::reform_model(const size_t &model_numb, const point &move, const point &scale, const point &turn)
 {
     auto model = *(_scene_manager.get_scene()->models_begin() + (model_numb - 1));
-    _reform_manager.reform_component(model, move, scale, turn);
+    _reform_manager.reform_model(model, move, scale, turn);
 }
 
 void facade::reform_models(const point &move, const point &scale, const point &turn)
@@ -69,4 +67,14 @@ void facade::reform_cam(const size_t &cam_numb, const point &shift)
 void facade::reform_cams(const point &shift)
 {
     _scene_manager.get_scene()->get_cams()->reform(shift);
+}
+
+size_t facade::cams_count()
+{
+    return _scene_manager.get_scene()->cams_count();
+}
+
+size_t facade::models_count()
+{
+    return _scene_manager.get_scene()->models_count();
 }

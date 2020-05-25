@@ -5,7 +5,8 @@
 #include <fstream>
 
 #include "builder.h"
-#include "../component/model.h"
+#include "../errors/file_error.h"
+#include "../objects/model.h"
 
 class base_loader
 {

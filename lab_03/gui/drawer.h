@@ -2,7 +2,7 @@
 #define DRAWER_H
 
 #include "ui_mainwindow.h"
-#include "component/point.h"
+#include "../objects/point.h"
 
 class base_drawer
 {

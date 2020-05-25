@@ -6,35 +6,35 @@ void reform_manager::reform_camera(std::shared_ptr<camera_obj> cam, const point 
     cam->reform(new_pos);
 }
 
-void reform_manager::reform_component(std::shared_ptr<component> _component, const point &move, const point &scale, const point &turn)
+void reform_manager::reform_model(std::shared_ptr<model_obj> _model, const point &move, const point &scale, const point &turn)
 {
-    _component->reform(move, scale, turn);
+    _model->reform(move, scale, turn);
 }
 
-void reform_manager::move_component(std::shared_ptr<component> _component, const double &dx, const double &dy, const double &dz)
+void reform_manager::move_model(std::shared_ptr<model_obj> _model, const double &dx, const double &dy, const double &dz)
 {
     point move(dx, dy, dz);
     point scale(1, 1, 1);
     point turn(0, 0, 0);
 
-    _component->reform(move, scale, turn);
+    _model->reform(move, scale, turn);
 }
 
-void reform_manager::scale_component(std::shared_ptr<component> _component, const double &kx, const double &ky, const double &kz)
+void reform_manager::scale_model(std::shared_ptr<model_obj> _model, const double &kx, const double &ky, const double &kz)
 {
     point move(0, 0, 0);
     point scale(kx, ky, kz);
     point turn(0, 0, 0);
 
-    _component->reform(move, scale, turn);
+    _model->reform(move, scale, turn);
 }
 
-void reform_manager::turn_component(std::shared_ptr<component> _component, const double &ox, const double &oy, const double &oz)
+void reform_manager::turn_model(std::shared_ptr<model_obj> _model, const double &ox, const double &oy, const double &oz)
 {
     point move(0, 0, 0);
     point scale(1, 1, 1);
     point turn(ox, oy, oz);
 
-    _component->reform(move, scale, turn);
+    _model->reform(move, scale, turn);
 }
 
