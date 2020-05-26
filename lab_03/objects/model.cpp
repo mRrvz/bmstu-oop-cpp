@@ -99,9 +99,9 @@ void model::reform(const point &move_coeff, const point &scale_coeff, const poin
     turn(turn_coeff.get_x(), turn_coeff.get_y(), turn_coeff.get_z());
 }
 
-void model::draw(draw_manager &manager) const
+void model::draw(draw_manager &_manager) const
 {
-    manager.draw_model(*this);
+    _manager.visit(*this);
 }
 
 void model::accept(std::shared_ptr<visitor> _visitor)

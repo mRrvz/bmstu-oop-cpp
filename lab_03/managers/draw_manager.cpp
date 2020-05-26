@@ -11,7 +11,7 @@ void draw_manager::set_cam(std::shared_ptr<camera> new_cam)
     this->cam = new_cam;
 }
 
-void draw_manager::draw_model(const model &model)
+void draw_manager::visit(const model &model)
 {
     const vector<point> points = model.get_points();
 
@@ -24,13 +24,12 @@ void draw_manager::draw_model(const model &model)
     }
 }
 
+void draw_manager::visit(const camera &camera) {};
+void draw_manager::visit(const cams_composite &composite) {};
+void draw_manager::visit(const models_composite &composite) {};
+
 point draw_manager::proect_point(const point &_point)
 {
-    if (cam == nullptr)
-    {
-        qDebug() << "CAM NULLPTR";
-    }
-
     point new_point(_point);
     point cam_pos(cam->get_pos());
 

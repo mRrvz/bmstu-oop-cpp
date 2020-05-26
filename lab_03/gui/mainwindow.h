@@ -24,8 +24,8 @@ public:
     ~MainWindow();
 
 protected:
-    const int win_x = 989;
-    const int win_y = 569;
+    const int win_x = 988;
+    const int win_y = 568;
 
     void setup_scene();
 
@@ -55,7 +55,6 @@ private slots:
     void on_down_button_clicked();
 
     void on_left_button_clicked();
-
 
 private:
     Ui::MainWindow *ui;
