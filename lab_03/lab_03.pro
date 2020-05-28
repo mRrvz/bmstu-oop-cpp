@@ -36,8 +36,11 @@ SOURCES += \
 
 HEADERS += \
     commands/command.h \
+<<<<<<< HEAD
     gui/factory.h \
     managers/base_manager.h \
+=======
+>>>>>>> 552a9242e3c19d206666bca73381cf2d77cc5173
     objects/camera.h \
     errors/base_error.h \
     errors/camera_error.h \
