@@ -10,6 +10,8 @@
 #include "../errors/camera_error.h"
 #include "../errors/model_error.h"
 #include "ui_mainwindow.h"
+#include "factory.h"
+#include "drawer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -60,5 +62,6 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *_scene;
     std::shared_ptr<facade> _facade;
+    std::shared_ptr<base_drawer> _drawer;
 };
 #endif

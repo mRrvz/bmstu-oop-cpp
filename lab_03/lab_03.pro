@@ -36,6 +36,7 @@ SOURCES += \
 
 HEADERS += \
     commands/command.h \
+    gui/factory.h \
     managers/base_manager.h \
     objects/camera.h \
     errors/base_error.h \

@@ -118,12 +118,15 @@ void MainWindow::setup_scene()
     ui->graphicsView->setScene(_scene);
     ui->graphicsView->setAlignment(Qt::AlignTop | Qt::AlignLeft);
     this->_scene->setSceneRect(0, 0, win_x, win_y);
+
+    std::shared_ptr<abstract_factory> factory(new qt_factory);
+    std::shared_ptr<base_drawer> drawer(new qt_drawer(this->_scene));
+    this->_drawer = drawer;
 }
 
 void MainWindow::update_scene()
 {
-    std::shared_ptr<qt_drawer> drawer(new qt_drawer(this->_scene));
-    draw_scene draw_command(drawer);
+    draw_scene draw_command(this->_drawer);
     draw_command.execute(_facade);
 }
 
