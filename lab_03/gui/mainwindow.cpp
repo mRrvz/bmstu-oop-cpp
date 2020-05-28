@@ -98,6 +98,15 @@ void MainWindow::on_turn_button_clicked()
 
 void MainWindow::on_load_button_clicked()
 {
+    try
+    {
+        check_cam_exist();
+    } catch (const camera_error &error)
+    {
+        QMessageBox::critical(NULL, "Ошибка", "Прежде чем добавлять модель, добавьте хотя бы одну камеру.");
+        return;
+    }
+
     load_model load_command("/home/alexey/reps/oop/lab_03/data/model.csv");
 
     try
@@ -170,7 +179,7 @@ void MainWindow::on_up_button_clicked()
         return;
     }
 
-    move_camera camera_command(1, 0, -10);
+    move_camera camera_command(1, 0, 10);
     camera_command.execute(_facade);
     update_scene();
 }
@@ -191,7 +200,7 @@ void MainWindow::on_down_button_clicked()
         return;
     }
 
-    move_camera camera_command(1, 0, 10);
+    move_camera camera_command(1, 0, -10);
     camera_command.execute(_facade);
     update_scene();
 }
