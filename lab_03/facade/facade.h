@@ -1,11 +1,11 @@
 #ifndef FACADE_H
 #define FACADE_H
 
-#include "../scene/scene.h"
-#include "../managers/load_manager.h"
+#include "../load/loader.h"
 #include "../managers/draw_manager.h"
 #include "../managers/scene_manager.h"
 #include "../managers/reform_manager.h"
+//#include "../scene/scene.h"
 
 class facade
 {
@@ -20,7 +20,7 @@ public:
     ~facade() = default;
 
     void load_model(std::string fname);
-    void add_model(const std::shared_ptr<model_obj> &);
+    void add_model(const std::shared_ptr<object> &);
     void remove_model(const size_t &index);
 
     void add_camera(const point &cam_pos);
@@ -30,23 +30,20 @@ public:
     void draw_scene(std::shared_ptr<base_drawer> _drawer);
 
     void reform_model(const size_t &model_numb, const point &move, const point &scale, const point &turn);
-    void reform_models(const point &move, const point &scale, const point &turn);
-
     void reform_cam(const size_t &cam_numb, const point &shift);
-    void reform_cams(const point &shift);
 
     size_t cams_count();
     size_t models_count();
 
 private:
-    facade() = default;
+    facade();
     facade(const facade &) = delete;
     facade &operator=(const facade &) = delete;
 
     scene_manager _scene_manager;
-    load_manager _load_manager;
-    draw_manager _draw_manager;
     reform_manager _reform_manager;
+    std::shared_ptr<abstract_loader> _load_manager;
+    std::shared_ptr<draw_manager> _draw_manager;
 };
 
 #endif

@@ -23,7 +23,6 @@ iterator<T>::iterator(const vector<T> &vector)
 template <typename T>
 T &iterator<T>::operator*()
 {
-    //qDebug() << *get_current() << "CURRRRRRRRRRRRENT";
     return *get_current();
 }
 

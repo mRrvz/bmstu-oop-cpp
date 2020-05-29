@@ -16,7 +16,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    commands/command.cpp \
     gui/drawer.cpp \
     gui/mainwindow.cpp \
     objects/camera.cpp \
@@ -25,39 +24,37 @@ SOURCES += \
     load/loader.cpp \
     main.cpp \
     objects/composite.cpp \
+    objects/details.cpp \
     objects/link.cpp \
     objects/model.cpp \
     objects/point.cpp \
     managers/draw_manager.cpp \
-    managers/load_manager.cpp \
     managers/reform_manager.cpp \
     managers/scene_manager.cpp \
     scene/scene.cpp
 
 HEADERS += \
     commands/command.h \
-<<<<<<< HEAD
-    gui/factory.h \
-    managers/base_manager.h \
-=======
->>>>>>> 552a9242e3c19d206666bca73381cf2d77cc5173
-    objects/camera.h \
     errors/base_error.h \
     errors/camera_error.h \
     errors/file_error.h \
     errors/model_error.h \
     facade/facade.h \
+    gui/factory.h \
     gui/drawer.h \
     gui/mainwindow.h \
+    load/abstract_loader.h \
     load/builder.h \
     load/loader.h \
+    objects/camera.h \
     objects/component.h \
     objects/composite.h \
+    objects/details.h \
     objects/link.h \
     objects/model.h \
     objects/point.h \
+    managers/base_manager.h \
     managers/draw_manager.h \
-    managers/load_manager.h \
     managers/reform_manager.h \
     managers/scene_manager.h \
     scene/scene.h \

@@ -8,30 +8,22 @@
 class scene
 {
 public:
-    scene();
+    scene() : models(new composite) {};
     ~scene() = default;
 
-    void add_model(std::shared_ptr<model_obj> model);
-    void remove_model(const iterator<std::shared_ptr<model_obj>> &iterator);
+    void add_model(std::shared_ptr<object> model);
+    void remove_model(const size_t model_index);
 
-    void add_camera(const std::shared_ptr<camera_obj> &camera);
-    void remove_camera(const iterator<std::shared_ptr<camera_obj>> &iterator);
+    void add_camera(const std::shared_ptr<camera> &camera);
+    void remove_camera(const size_t cam_index);
 
-    iterator<std::shared_ptr<model_obj>> models_begin() const;
-    iterator<std::shared_ptr<model_obj>> models_end() const;
-
-    iterator<std::shared_ptr<camera_obj>> cams_begin() const;
-    iterator<std::shared_ptr<camera_obj>> cams_end() const;
-
-    std::shared_ptr<models_composite> get_models() const;
-    std::shared_ptr<cams_composite> get_cams() const;
-
-    size_t models_count() const;
-    size_t cams_count() const;
+    vector<std::shared_ptr<object>> get_models();
+    std::shared_ptr<composite> get_composite();
+    vector<std::shared_ptr<camera>> get_cams();
 
 protected:
-    std::shared_ptr<models_composite> models;
-    std::shared_ptr<cams_composite> cams;
+    std::shared_ptr<composite> models;
+    vector<std::shared_ptr<camera>> cams;
 };
 
 #endif

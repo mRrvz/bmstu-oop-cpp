@@ -109,7 +109,7 @@ class add_model : public base_command
 {
 public:
     add_model() = delete;
-    add_model(const std::shared_ptr<model_obj> &model) : model(model) {};
+    add_model(const std::shared_ptr<object> &model) : model(model) {};
     ~add_model() = default;
 
     virtual void execute(std::shared_ptr<facade> &facade) override
@@ -118,7 +118,7 @@ public:
     }
 
 private:
-    std::shared_ptr<model_obj> model;
+    std::shared_ptr<object> model;
 };
 
 class remove_model : public base_command

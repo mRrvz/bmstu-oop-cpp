@@ -1,8 +1,8 @@
 #include "loader.h"
 
-std::shared_ptr<model> model_loader::load_model(base_builder &builder)
+std::shared_ptr<model> file_loader::load_model(std::shared_ptr<base_builder> builder)
 {
-    builder.build();
+    builder->build();
 
     size_t points_count;
     this->file >> points_count;
@@ -11,7 +11,7 @@ std::shared_ptr<model> model_loader::load_model(base_builder &builder)
     {
         double x, y, z;
         this->file >> x >> y >> z;
-        builder.build_point(x, y, z);
+        builder->build_point(x, y, z);
     }
 
     size_t links_count;
@@ -21,13 +21,13 @@ std::shared_ptr<model> model_loader::load_model(base_builder &builder)
     {
         size_t pt1, pt2;
         this->file >> pt1 >> pt2;
-        builder.build_link(pt1, pt2);
+        builder->build_link(pt1, pt2);
     }
 
-    return builder.get();
+    return builder->get();
 }
 
-void model_loader::fopen(std::string &fname)
+void file_loader::fopen(std::string &fname)
 {
     this->file.open(fname);
 
@@ -38,7 +38,7 @@ void model_loader::fopen(std::string &fname)
     }
 }
 
-void model_loader::fclose()
+void file_loader::fclose()
 {
     try
     {
@@ -48,3 +48,13 @@ void model_loader::fclose()
         error.what();
     }
 }
+
+std::shared_ptr<model> model_loader::load_model(std::string &fname)
+{
+    this->loader->fopen(fname);
+    std::shared_ptr<model> model(loader->load_model(this->builder));
+    this->loader->fclose();
+
+    return model;
+}
+

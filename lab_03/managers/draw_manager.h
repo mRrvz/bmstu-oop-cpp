@@ -1,11 +1,12 @@
 #ifndef DRAW_MANAGER_H
 #define DRAW_MANAGER_H
 
+#include <memory>
 #include "../gui/drawer.h"
-#include "../scene/scene.h"
 #include "../visitor/visitor.h"
+#include "base_manager.h"
 
-class draw_manager : public visitor
+class draw_manager : public visitor, public base_manager
 {
 public:
     draw_manager() = default;
@@ -14,8 +15,7 @@ public:
 
     virtual void visit(const camera &cam) override;
     virtual void visit(const model &model) override;
-    virtual void visit(const cams_composite &composite) override;
-    virtual void visit(const models_composite &composite) override;
+    virtual void visit(const composite &composite) override;
 
     void set_drawer(std::shared_ptr<base_drawer>);
     void set_cam(std::shared_ptr<camera>);

@@ -3,15 +3,16 @@
 
 #include "../objects/camera.h"
 #include "../scene/scene.h"
+#include "base_manager.h"
 
-class scene_manager
+class scene_manager : public base_manager
 {
 public:
     scene_manager();
     ~scene_manager() = default;
 
     std::shared_ptr<scene> get_scene() const;
-    std::shared_ptr<camera_obj> get_cam() const;
+    std::shared_ptr<camera> get_cam() const;
 
     void set_scene(std::shared_ptr<scene> scene_);
     void set_cam(const size_t &cam_numb);
@@ -19,7 +20,7 @@ public:
 
 private:
     std::shared_ptr<scene> _scene;
-    std::shared_ptr<camera_obj> current_cam;
+    std::shared_ptr<camera> current_cam;
 };
 
 #endif

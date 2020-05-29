@@ -7,6 +7,7 @@
 #include "builder.h"
 #include "../errors/file_error.h"
 #include "../objects/model.h"
+#include "abstract_loader.h"
 
 class base_loader
 {
@@ -14,23 +15,24 @@ public:
     base_loader() = default;
     virtual ~base_loader() = default;
 
-    virtual std::shared_ptr<model> load_model(base_builder &builder) = 0;
+    virtual std::shared_ptr<model> load_model(std::shared_ptr<base_builder> builder) = 0;
     virtual void fopen(std::string &fname) = 0;
     virtual void fclose() = 0;
 };
 
-class model_loader : public base_loader
+class file_loader : public base_loader
 {
 public:
-    model_loader() : file(nullptr) {};
-    ~model_loader() = default;
+    file_loader() = default;
+    virtual ~file_loader() = default;
 
-    virtual std::shared_ptr<model> load_model(base_builder &builder) override;
+    virtual std::shared_ptr<model> load_model(std::shared_ptr<base_builder> builder) override;
     virtual void fopen(std::string &fname) override;
     virtual void fclose() override;
 
-private:
-    std::fstream file;
+protected:
+    std::ifstream file;
 };
+
 
 #endif

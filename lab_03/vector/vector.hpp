@@ -83,8 +83,8 @@ void vector<T>::remove(iterator<T> _iterator)
 template <typename T>
 void vector<T>::remove(size_t index)
 {
-    iterator<T> iterator(index);
-    this->remove(iterator);
+    //iterator<T> iterator(index);
+    //this->remove(iterator);
 }
 
 template <typename T>

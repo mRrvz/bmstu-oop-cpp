@@ -1,11 +1,6 @@
 #include "camera.h"
 #include "../visitor/visitor.h"
 
-point camera::get_pos()
-{
-    return current_pos;
-}
-
 void camera::move_x(const double &shift)
 {
     this->current_pos.set_x(this->current_pos.get_x() + shift);
@@ -21,7 +16,7 @@ void camera::move_z(const double &shift)
     this->current_pos.set_z(this->current_pos.get_z() + shift);
 }
 
-void camera::reform(const point &new_pos)
+void camera::reform(const point &new_pos, const point &scale, const point &turn)
 {
     this->move_x(new_pos.get_x());
     this->move_y(new_pos.get_y());
