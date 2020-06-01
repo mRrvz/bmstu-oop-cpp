@@ -1,11 +1,13 @@
 #ifndef LIFT_H
 #define LIFT_H
 
+#include <QObject>
 
-class lift
+class lift : QObject
 {
+    Q_OBJECT;
 public:
-    lift();
+    explicit lift(QObject *parent = nullptr);
 };
 
-#endif // LIFT_H
+#endif
