@@ -2,6 +2,8 @@
 #define DOOR_H
 
 #include <QObject>
+#include <QDebug>
+#include <QTimer>
 
 class door : public QObject
 {
@@ -20,12 +22,24 @@ public:
     door();
     ~door() = default;
 
-    door_status status;
+public slots:
+    void opened();
+    void closed();
 
+private slots:
+    void opening();
+    void closing();
 
 signals:
-    void door_closed();
-    void door_opened();
+    void closed_signal();
+    void open_signal();
+
+private:
+    door_status status;
+
+    QTimer opening_timer;
+    QTimer closing_timer;
+    QTimer opened_timer;
 };
 
 #endif

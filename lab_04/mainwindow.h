@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVBoxLayout>
+#include <memory>
+
+#include "lift.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,5 +21,8 @@ public:
 
 private:
     Ui::MainWindow *ui;
+
+    std::unique_ptr<QVBoxLayout> layout;
+    lift _lift;
 };
 #endif // MAINWINDOW_H

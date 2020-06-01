@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     button.cpp \
     cabin.cpp \
+    controller.cpp \
     door.cpp \
     lift.cpp \
     main.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     button.h \
     cabin.h \
+    controller.h \
     door.h \
     lift.h \
     mainwindow.h

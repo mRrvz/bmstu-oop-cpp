@@ -22,7 +22,11 @@ public:
 
 public slots:
     void pressed();
-    void finish();
+    void unpressed();
+
+signals:
+    void floor_pressed(ssize_t floor);
+    void unpress_signal();
 
 private:
     button_status status;
