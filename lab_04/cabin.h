@@ -26,8 +26,8 @@ public slots:
     void cabin_stopped();
 
 signals:
-    void floor_finished(ssize_t floor, direction dir);
-    void floor_passed(ssize_t floor, direction dir);
+    void floor_finished(ssize_t floor, direction dir, bool);
+    void floor_passed(ssize_t floor, direction dir, bool);
 
 private:
     door _door;

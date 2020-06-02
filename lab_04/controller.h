@@ -36,8 +36,7 @@ public:
 
 public slots:
     void new_target(ssize_t floor);
-    void finish_target(ssize_t floor, direction direction_);
-    void passed_floor(ssize_t floor, direction direction_);
+    void passed_floor(ssize_t floor, direction direction_, bool is_stopped);
 
 signals:
     void new_target_signal(ssize_t floor);

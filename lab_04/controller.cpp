@@ -19,13 +19,6 @@ controller::controller(QWidget *parent) : QWidget(parent)
     }
 }
 
-void controller::passed_floor(ssize_t floor, direction direction_)
-{
-    this->current_floor = floor;
-    this->_direction = direction_;
-    qDebug() << "Лифт едет. Проехал этаж: " << current_floor;
-}
-
 void controller::new_target(ssize_t floor)
 {
     this->status = BUSY;
@@ -35,25 +28,34 @@ void controller::new_target(ssize_t floor)
     emit new_target_signal(floor);
 }
 
-void controller::finish_target(ssize_t floor, direction direction_)
+void controller::passed_floor(ssize_t floor, direction direction_, bool is_stopped)
 {
     if (status == BUSY)
     {
-        qDebug() << "Лифт остановился на этаже: " << floor;
-
-        this->current_floor = floor;
-        this->visited_floors[floor - 1] = true;
-        this->_direction = direction_;
-
-        emit this->buttons.at(floor - 1)->unpress_signal();
-
-        if (target_exist(floor))
+        if (!is_stopped)
         {
-            emit new_target_signal(floor);
+            this->current_floor = floor;
+            this->_direction = direction_;
+            qDebug() << "Лифт едет. Проехал этаж: " << floor;
         }
         else
         {
-            this->status = FREE;
+            qDebug() << "Лифт остановился на этаже: " << floor;
+
+            this->current_floor = floor;
+            this->visited_floors[floor - 1] = true;
+            this->_direction = direction_;
+
+            emit this->buttons.at(floor - 1)->unpress_signal();
+
+            if (target_exist(floor))
+            {
+                emit new_target_signal(floor);
+            }
+            else
+            {
+                this->status = FREE;
+            }
         }
     }
 }
