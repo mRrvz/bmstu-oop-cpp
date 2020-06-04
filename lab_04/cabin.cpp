@@ -13,6 +13,7 @@ cabin::cabin(QObject *parent)
     QObject::connect(this, SIGNAL(moving_signal()), this, SLOT(cabin_moving()));
     QObject::connect(this, SIGNAL(stopped_signal(bool, ssize_t)), this, SLOT(cabin_stopped(bool, ssize_t)));
     QObject::connect(this, SIGNAL(open_doors_signal()), &_door, SLOT(opening()));
+    QObject::connect(&_door, SIGNAL(closed_signal()), this, SLOT(cabin_moving()));
 }
 
 void cabin::cabin_moving()

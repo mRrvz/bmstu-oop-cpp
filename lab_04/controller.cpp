@@ -26,7 +26,6 @@ void controller::new_target(ssize_t floor)
 
     target_exist(floor);
     this->needed_floor = floor;
-    qDebug() << floor  << "FLOOR1";
     emit new_target_signal(floor);
 }
 
