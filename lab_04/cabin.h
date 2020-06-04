@@ -23,11 +23,11 @@ public:
 public slots:
     void cabin_moving();
     void cabin_take_target(ssize_t floor);
-    void cabin_stopped();
+    void cabin_stopped(bool is_last, ssize_t new_floor = 1);
 
 signals:
-    void floor_finished(ssize_t floor, direction dir, bool);
-    void floor_passed(ssize_t floor, direction dir, bool);
+    void open_doors_signal();
+    void floor_passed(ssize_t floor, direction dir);
 
 private:
     door _door;
@@ -41,7 +41,7 @@ private:
 
 signals:
     void moving_signal();
-    void stopped_signal();
+    void stopped_signal(bool = true, ssize_t = 1);
 };
 
 #endif

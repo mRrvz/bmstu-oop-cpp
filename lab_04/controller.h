@@ -36,15 +36,17 @@ public:
 
 public slots:
     void new_target(ssize_t floor);
-    void passed_floor(ssize_t floor, direction direction_, bool is_stopped);
+    void passed_floor(ssize_t floor, direction direction_);
 
 signals:
     void new_target_signal(ssize_t floor);
+    void stopped_signal(bool, ssize_t = 1);
 
 private:
     controller_status status;
     direction _direction;
     int current_floor;
+    int needed_floor;
 
     std::vector<std::shared_ptr<button>> buttons;
     std::vector<bool> visited_floors;

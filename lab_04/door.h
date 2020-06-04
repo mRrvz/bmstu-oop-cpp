@@ -15,7 +15,7 @@ private:
         OPEN,
         OPENING,
         CLOSING,
-        CLOSE
+        CLOSED
     };
 
 public:
@@ -32,7 +32,6 @@ private slots:
 
 signals:
     void closed_signal();
-    void open_signal();
 
 private:
     door_status status;

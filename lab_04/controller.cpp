@@ -25,40 +25,39 @@ void controller::new_target(ssize_t floor)
     this->visited_floors[floor - 1] = false;
 
     target_exist(floor);
+    this->needed_floor = floor;
+    qDebug() << floor  << "FLOOR1";
     emit new_target_signal(floor);
 }
 
-void controller::passed_floor(ssize_t floor, direction direction_, bool is_stopped)
+void controller::passed_floor(ssize_t floor, direction direction_)
 {
     if (status == BUSY)
     {
-        if (!is_stopped)
-        {
-            this->current_floor = floor;
-            this->_direction = direction_;
-            qDebug() << "Лифт едет. Проехал этаж: " << floor;
-        }
-        else
+        this->current_floor = floor;
+        this->_direction = direction_;
+
+        if (current_floor == needed_floor)
         {
             qDebug() << "Лифт остановился на этаже: " << floor;
 
-            this->current_floor = floor;
-            this->visited_floors[floor - 1] = true;
-            this->_direction = direction_;
-
             emit this->buttons.at(floor - 1)->unpress_signal();
+            this->visited_floors[floor - 1] = true;
 
             if (target_exist(floor))
             {
-                emit new_target_signal(floor);
+                this->needed_floor = floor;
+                emit stopped_signal(false, floor);
             }
             else
             {
                 this->status = FREE;
+                emit stopped_signal(true);
             }
         }
     }
 }
+
 
 bool controller::target_exist(ssize_t &new_floor)
 {

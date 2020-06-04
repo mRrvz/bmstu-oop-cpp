@@ -8,39 +8,44 @@ cabin::cabin(QObject *parent)
     this->need_floor = 1;
     this->_direction = STOP;
 
-    QObject::connect(&_door, SIGNAL(closed_signal()), this, SLOT(cabin_moving()));
     QObject::connect(&move_timer, SIGNAL(timeout()), this, SLOT(cabin_moving()));
 
     QObject::connect(this, SIGNAL(moving_signal()), this, SLOT(cabin_moving()));
-    QObject::connect(this, SIGNAL(stopped_signal()), this, SLOT(cabin_stopped()));
-    QObject::connect(this, SIGNAL(stopped_signal()), &_door, SLOT(opening()));
+    QObject::connect(this, SIGNAL(stopped_signal(bool, ssize_t)), this, SLOT(cabin_stopped(bool, ssize_t)));
+    QObject::connect(this, SIGNAL(open_doors_signal()), &_door, SLOT(opening()));
 }
 
 void cabin::cabin_moving()
 {
-    if (status != FREE)
+    if (status == MOVING || status == GET)
     {
         this->status = MOVING;
+        move_timer.start(MOVING_TIME);
 
-        if (current_floor == need_floor)
+        qDebug() << "Лифт едет. Этаж: " << this->current_floor;
+        emit floor_passed(current_floor, this->_direction);
+
+        if (current_floor != need_floor)
         {
-            emit stopped_signal();
-        }
-        else
-        {
-            move_timer.start(MOVING_TIME);
-            emit floor_passed(current_floor, this->_direction, false);
             this->_direction = current_floor > need_floor ? DOWN : UP;
-            this->current_floor = current_floor > need_floor ? current_floor - 1 : current_floor+ + 1;
+            this->current_floor = current_floor > need_floor ? current_floor - 1 : current_floor + 1;
         }
     }
 }
 
-void cabin::cabin_stopped()
+void cabin::cabin_stopped(bool is_last, ssize_t new_floor)
 {
-    this->status = FREE;
+    if (is_last)
+    {
+        this->status = FREE;
+    } else
+    {
+        this->status = GET;
+        this->need_floor = new_floor;
+    }
+
     this->move_timer.stop();
-    emit floor_finished(this->current_floor, this->_direction, true);
+    emit open_doors_signal();
 }
 
 void cabin::cabin_take_target(ssize_t floor)
@@ -50,7 +55,7 @@ void cabin::cabin_take_target(ssize_t floor)
 
     if (this->current_floor == this->need_floor)
     {
-        emit stopped_signal();
+        emit floor_passed(current_floor, this->_direction);
     }
     else
     {
@@ -58,3 +63,4 @@ void cabin::cabin_take_target(ssize_t floor)
         emit moving_signal();
     }
 }
+
